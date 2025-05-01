@@ -88,9 +88,34 @@ create_package(
 
 -   The regexcite directory is an **`R source package`** and **`an RStudio Project`**. The next command will also turn it into a `git` repository.
 
+-   `use_r()`: opens an R script inside `R/` where I can put my function definition. The name of the R script is the argument input to `use_r` and should be the same as the name of the function.
+
+-   `load_all()`: loads all of the functions defined in the package without actually adding them to the global env. Good way of testing the package as it matures.
+
 ```{r}
 # using git in the repo project/directory
 use_git()
 
+# coding the first function
+strsplit1 <- function(x, split){
+  strsplit(x, split = split)[[1]]
+}
+
+# use_r()
+use_r("strsplit1")
+
+# load_all()
+load_all()
+
+# example test
+x <- "alfa,bravo,charlie,delta"
+strsplit1(x, split = ",")
+
+# checking for existence in global env
+exists(
+  "strsplit1",
+  where = globalenv(),
+  inherits = FALSE
+)
 
 ```
