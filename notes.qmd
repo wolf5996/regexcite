@@ -1,0 +1,96 @@
+---
+title: "Package Development"
+author: "Badran Elshenawy"
+date: 2025-04-25T12:00:00Z
+format:
+  html:
+    theme: darkly
+    toc: true
+    toc-depth: 2
+    self-contained: true
+    title-block-banner: true
+---
+
+# Context
+
+-   Working with TCGA data, I came to the realization that TCGA lacks good visualisation packages. I can create my own package, and that would be a solid publication on its own.
+
+-   What I will do now is go through [R packages (2e)](https://r-pkgs.org/) to learn the basics of package development in general and for R specifically.
+
+-   I will then use my own skills in combination with ChatGPT/LLMs to create a full package with documentation.
+
+-   This is a side project that I anticipate will take several months to complete—it will teach me an immense amount about software development and has the potential to boost my CV with a full package of my own.
+
+-   For my note-taking style, I will try to be more chill and focus on the actual book.
+
+    -   Do not intend to include a massive amount of notes and use this document as a comprehensive reference.
+
+    -   This is just a few points I will jot down as I go through the book. I think I value consuming the information and understanding it more than I do note-taking at this current stage of my development.
+
+# Notes
+
+-   Throughout this book:
+
+    -   `fun()` refers to functions.
+
+    -   `var` refers to variables and function arguments.
+
+    -   `path/` for paths.
+
+-   **2025-04-25:** Finished welcome and preface. Will start at introduction next time. Should check for a pirated PDF version.
+
+-   **2025-04-28:** Read the **`Introduction`**. Will start at **`The Whole Game`** next time.
+
+# Chapter 1: The Whole Game
+
+-   Will walk through the development of a toy package called `regexcite`.
+
+-   Should embody all the steps of package developments, which future chapters will delve into in more detail.
+
+```{r}
+# setwd
+setwd(
+  dirname(
+    rstudioapi::getActiveDocumentContext()$path
+  )
+)
+# libraries
+library(devtools)
+packageVersion("devtools")
+
+# creating the package
+create_package(
+  path = "regexcite"
+)
+```
+
+-   This code creates a directory which will contain my package and opens a new R session relating to the package R project.
+
+-   The relevant files created by this are:
+
+    -   `.Rbuildignore` lists files that we need to have around but that should not be included when building the R package from source. If you aren’t using RStudio, [`create_package()`](https://usethis.r-lib.org/reference/create_package.html) may not create this file (nor `.gitignore`) at first, since there’s no RStudio-related machinery that needs to be ignored. However, you will likely develop the need for `.Rbuildignore` at some point, regardless of what editor you are using. It is discussed in more detail in [Section 3.3.1](https://r-pkgs.org/structure.html#sec-rbuildignore).
+
+    -   `.Rproj.user`, if you have it, is a directory used internally by RStudio.
+
+    -   `.gitignore` anticipates Git usage and tells Git to ignore some standard, behind-the-scenes files created by R and RStudio. Even if you do not plan to use Git, this is harmless.
+
+    -   `DESCRIPTION` provides metadata about your package. We edit this shortly and [Chapter 9](https://r-pkgs.org/description.html) covers the general topic of the `DESCRIPTION` file.
+
+    -   `NAMESPACE` declares the functions your package exports for external use and the external functions your package imports from other packages. At this point, it is empty, except for a comment declaring that this is a file you should not edit by hand.
+
+    -   The `R/` directory is the “business end” of your package. It will soon contain `.R` files with function definitions.
+
+    -   `regexcite.Rproj` is the file that makes this directory an RStudio Project. Even if you don’t use RStudio, this file is harmless. Or you can suppress its creation with `create_package(..., rstudio = FALSE)`. More in [Section 4.2](https://r-pkgs.org/workflow101.html#sec-workflow101-rstudio-projects).
+
+-   **2025-04-30:** finished sections 1.1-1.4. Will start on section 1.5 (`use_git()`) tomorrow.
+
+    -   So far, the process seems very nice and straightforward.
+
+-   The regexcite directory is an **`R source package`** and **`an RStudio Project`**. The next command will also turn it into a `git` repository.
+
+```{r}
+# using git in the repo project/directory
+use_git()
+
+
+```
