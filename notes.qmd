@@ -27,6 +27,10 @@ format:
 
     -   This is just a few points I will jot down as I go through the book. I think I value consuming the information and understanding it more than I do note-taking at this current stage of my development.
 
+-   During my work on this book, I thought about switching a bit towards Quarto or positron for this guide.
+
+    -   However, I think that's a poor idea because this book clearly states that it is designed to work with RStudio, which has a host of functions and utilities built-in that are meant to make the process of package development smooth.
+
 # Notes
 
 -   Throughout this book:
@@ -43,25 +47,27 @@ format:
 
 # Chapter 1: The Whole Game
 
+-   **Note:** setting WD is not necessary here at all, and the reason is that R projects set the working directory automatically.
+
 -   Will walk through the development of a toy package called `regexcite`.
 
 -   Should embody all the steps of package developments, which future chapters will delve into in more detail.
 
 ```{r}
 # setwd
-setwd(
-  dirname(
-    rstudioapi::getActiveDocumentContext()$path
-  )
-)
+# setwd(
+#   dirname(
+#     rstudioapi::getActiveDocumentContext()$path
+#   )
+# )
 # libraries
 library(devtools)
 packageVersion("devtools")
 
 # creating the package
-create_package(
-  path = "regexcite"
-)
+# create_package(
+#   path = "regexcite"
+# )
 ```
 
 -   This code creates a directory which will contain my package and opens a new R session relating to the package R project.
@@ -119,3 +125,32 @@ exists(
 )
 
 ```
+
+-   **2025-05-01:** stopped at section 1.9 `check()`.
+-   `check()`: checks that your package is still in working order.
+-   `CTRL` + `.`: excellent keyboard shortcut to go to any other file in your project and open it in Rstudio.
+-   Editing Description is easy and allows you to add metadata information about myself as the author and the package.
+-   `use_mit_license()`: adds the license.
+-   `document()`: creates the documentation for package functions.
+    -   Documentation for a single function is handled using `roxygen2`. Check the source code file for `strsplit1()` to see the skeleton I had to insert and edit.
+    -   This then creates a helper `strsplit1.Rd` file inside the `man` directory.
+-   The export directive in `NAMESPACE` is what makes `strsplit1()` available to a user after attaching regexcite via [`library(regexcite)`](https://rdrr.io/r/base/library.html). Just as it is entirely possible to author `.Rd` files “by hand”, you can manage `NAMESPACE` explicitly yourself. But we choose to delegate this to devtools (and roxygen2).
+    -   This happened because the roxygen2 skeleton we inserted into the source code had the @export tag.
+
+```{r}
+# check()
+check()
+
+# use_mit_license()
+use_mit_license()
+
+# document()
+document()
+
+# second check()
+check()
+```
+
+-   Stopped at section 1.14 `install()`
+
+-   
