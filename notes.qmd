@@ -31,6 +31,14 @@ format:
 
     -   However, I think that's a poor idea because this book clearly states that it is designed to work with RStudio, which has a host of functions and utilities built-in that are meant to make the process of package development smooth.
 
+-   The final evolution of this is going to be a ChatGPT or Claude project where each thread handles an aspect of the package, and I will be using that to create my own ggTCGA package.
+
+    -   I can then use this package internally for my own analysis of TCGA data and publish the package as a paper on biorevix.
+
+        -   This is a solid plan and one that I think holds immense value for me.
+
+            -   If you are wondering why other people would not do the same thing, well it's because they do not have the foresight needed to learn fundamentals and the vision necessary to execute on these using LLMs to handle details and using their brains to handle higher level management of LLM performance and abstraction.
+
 # Notes
 
 -   Throughout this book:
@@ -98,7 +106,7 @@ packageVersion("devtools")
 
 -   `load_all()`: loads all of the functions defined in the package without actually adding them to the global env. Good way of testing the package as it matures.
 
-```{r}
+```{r git_function_creation_loading}
 # using git in the repo project/directory
 use_git()
 
@@ -137,7 +145,7 @@ exists(
 -   The export directive in `NAMESPACE` is what makes `strsplit1()` available to a user after attaching regexcite via [`library(regexcite)`](https://rdrr.io/r/base/library.html). Just as it is entirely possible to author `.Rd` files “by hand”, you can manage `NAMESPACE` explicitly yourself. But we choose to delegate this to devtools (and roxygen2).
     -   This happened because the roxygen2 skeleton we inserted into the source code had the @export tag.
 
-```{r}
+```{r mit_license_and_document}
 # check()
 check()
 
@@ -151,6 +159,140 @@ document()
 check()
 ```
 
--   Stopped at section 1.14 `install()`
+-   **2025-05-06:** Stopped at section 1.14 `install()`
+-   `install()`: installs the package I just created.
 
--   
+```{r install}
+# install()
+install()
+
+# laoding regexcite
+library(regexcite)
+
+# testing
+x <- "alfa,bravo,charlie,delta"
+regexcite::strsplit1(x, split = ",")
+
+```
+
+-   Testing seems to be the most complex topic of all with many tools coming into play.
+
+-   `use_testthat()`: initializes the structure for testing.
+
+-   `use_test()`: creates the test with the name we want. Ideally, that should match the name of the function.
+
+-   The actual test itself is a simple check of whether the function generates the expected output using a simplistic example. This is done using `expect_equal()` function.
+
+```{r use_testthat}
+# initializing
+use_testthat()
+
+# creating actual test
+use_test("strsplit1")
+
+# test
+test()
+```
+
+-   `use_package()`: specifies the package that we will be using functions from.
+
+-   We then batch rename the R code file for our function and the associated test file using `rename_files()`. We then go into these files and change the source code and the affiliated tests.
+
+-   We then call `document()` again to update the documentation and the NAMESPACE. The latter is vital to make sure that our new function names are available.
+
+-   We then call `load_all()` to test drive the new function.
+
+```{r use_package}
+# use
+use_package("stringr")
+
+# renaming
+rename_files("strsplit1", "str_split_one")
+
+# documenting
+document()
+
+# loading again
+load_all()
+
+# testing
+str_split_one(string = "a,b,c", pattern = ",") # works
+str_split_one(string = c("a,b,c","d"), pattern = ",") # does not work
+```
+
+-   **2025-05-08:** Stopped at `use_github()`
+-   Multiple approaches to connect my repo with GitHub. I am going to try `use_github()` here.
+-   I used it and it did magic for me. It created the full GitHub repo, added its URL as my origin, and synced everything between my local analysis thusfar and the newly created GitHub repo.
+    -   Phenomenal shit, and this is exactly what I intend to use for my own analysis repos as well to faciliate the creation of GitHub repos.
+        -   There is a reason I was very keen to go through this book even on my day off.
+-   `use_readme_rmd()`: creates an Rmd file that is then used to build my md file for the repo. Excellent for having live code and showing people general usage and installation of the package.
+-   Final `check()` and `install()` to make sure everything is in order before moving on.
+
+```{r}
+# use_github()
+use_github()
+
+# use_readme_rmd()
+use_readme_rmd()
+
+# build_readme()
+build_readme()
+
+# final check
+check()
+
+# final install
+install()
+```
+
+-   This is the general overview of the process.
+
+    -   `load_all()`: makes all of the functions available so they can be tested and improved.
+
+    -   `testthat` and `test()`: allow you to create tests and run them to ensure your packages are tested and working fine.
+
+    -   `roxygen2`: handles documentation.
+
+    -   Then, you commit and push to GitHub, where GitHub actions are taken.
+
+        -   The very last step is the only mysterious bit to me.
+
+![](images/clipboard-4036790326.png)
+
+Here is a review of the key functions you’ve seen in this chapter, organized roughly by their role in the development process.
+
+These functions setup parts of the package and are typically called once per package:
+
+-   [`create_package()`](https://usethis.r-lib.org/reference/create_package.html)
+
+-   [`use_git()`](https://usethis.r-lib.org/reference/use_git.html)
+
+-   [`use_mit_license()`](https://usethis.r-lib.org/reference/licenses.html)
+
+-   [`use_testthat()`](https://usethis.r-lib.org/reference/use_testthat.html)
+
+-   [`use_github()`](https://usethis.r-lib.org/reference/use_github.html)
+
+-   [`use_readme_rmd()`](https://usethis.r-lib.org/reference/use_readme_rmd.html)
+
+You will call these functions on a regular basis, as you add functions and tests or take on dependencies:
+
+-   [`use_r()`](https://usethis.r-lib.org/reference/use_r.html)
+
+-   [`use_test()`](https://usethis.r-lib.org/reference/use_r.html)
+
+-   [`use_package()`](https://usethis.r-lib.org/reference/use_package.html)
+
+You will call these functions multiple times per day or per hour, during development:
+
+-   [`load_all()`](https://devtools.r-lib.org/reference/load_all.html)
+
+-   [`document()`](https://devtools.r-lib.org/reference/document.html)
+
+-   [`test()`](https://devtools.r-lib.org/reference/test.html)
+
+-   [`check()`](https://devtools.r-lib.org/reference/check.html)
+
+# Chapter 2: System Setup
+
+-   **2025-05-10:** This is where I stopped after the end of chapter 1. Next time is the start of chapter 2.
