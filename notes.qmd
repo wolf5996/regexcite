@@ -259,6 +259,14 @@ install()
 
 ![](images/clipboard-4036790326.png)
 
+## Chapter Summary
+
+-   **Note:** This summary is from the book directly, and I think it's a very good overview of everything that this chapter covered as well as the full workflow of package development.
+
+    -   Now that I am thinking about it, the only thing I think I will struggle with is writing tests for visualisations.
+
+    -   I do not know how people create these but I think the book will go into these aspects in more detail in later chapters.
+
 Here is a review of the key functions you’ve seen in this chapter, organized roughly by their role in the development process.
 
 These functions setup parts of the package and are typically called once per package:
@@ -296,3 +304,46 @@ You will call these functions multiple times per day or per hour, during develop
 # Chapter 2: System Setup
 
 -   **2025-05-10:** This is where I stopped after the end of chapter 1. Next time is the start of chapter 2.
+-   **Notes:** I have switched to a style of note-taking that relies on Claude to summarize the key points of the section into a few pivotal bullet points.
+    -   I think this is a very good way of doing it, and it is especially nice given Claude's flexibility when it comes to the formatting of the inputs.
+    -   Using ```` ``` ```` allows me to input markdown, which is excellent for formatting my inputs.
+-   **Using devtools and Its Constituent Packages**
+    -   Load devtools with `library(devtools)`
+    -   Access all functions directly without qualification (e.g., `load_all()`) when developing packages interactively
+    -   This approach is recommended when developing packages interactively
+-   **Within Package Code** - Do NOT depend on devtools in your package code - Access functions from their primary home packages (e.g., use `sessioninfo::session_info()` instead of `devtools::session_info()`)
+    -   This refers to the use-case where the package being developed uses one of the functions that `devtools` makes available, in which case it is far better to reference the home package rather than `devtools` directly.
+-   **Bug Reporting** - Report issues to the package that is a function's primary home - Check the help for `devtools::fcn()` to determine a function's origin
+-   **Using usethis** - usethis is a notable constituent package that many developers use directly - usethis is automatically attached when you load devtools with `library(devtools)` - You can use usethis functions without qualification after loading devtools - For programmatic style, use explicit namespace: `usethis::use_testthat()`
+
+```{r}
+# preparing my system
+pak::pak(
+ c("devtools",
+  "roxygen2",
+  "testthat",
+  "knitr")
+)
+
+# laoding devtools
+library(devtools)
+
+# ensuring devtools is always loaded
+use_devtools()
+```
+
+-   **Personal startup configuration for devtools**
+
+    -   Add devtools to `.Rprofile` for automatic loading in every R session
+
+    -   Use `if (interactive()) { suppressMessages(require(devtools)) }` in `.Rprofile`
+
+    -   The `use_devtools()` function helps set this up automatically
+
+-   **Caution with `.Rprofile`** - Normally avoid adding packages to `.Rprofile` as it creates hidden dependencies - devtools is an exception as it's a workflow package, not for analysis scripts - Only load in interactive sessions to maintain good practices
+
+-   **Setting your defaults in usethis** - Configure personal information in `.Rprofile` with the `options()` function - Set default author information with `"Authors@R"` containing name, email, and roles - Define preferred license with `License` option
+
+-   **Getting development versions** - Install latest unreleased features with `devtools::install_github("r-lib/devtools")` - Alternative method using pak: `pak::pak("r-lib/devtools")`
+
+-   **2025-05-12:** Stopped at ***2.3. R Build Toolchain***
