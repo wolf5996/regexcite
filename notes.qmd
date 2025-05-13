@@ -303,10 +303,10 @@ You will call these functions multiple times per day or per hour, during develop
 
 # Chapter 2: System Setup
 
--   **2025-05-10:** This is where I stopped after the end of chapter 1. Next time is the start of chapter 2.
--   **Notes:** I have switched to a style of note-taking that relies on Claude to summarize the key points of the section into a few pivotal bullet points.
-    -   I think this is a very good way of doing it, and it is especially nice given Claude's flexibility when it comes to the formatting of the inputs.
-    -   Using ```` ``` ```` allows me to input markdown, which is excellent for formatting my inputs.
+-   **2025-05-10:** This is where I stopped after the end of chapter 1. Next time is the start of chapter 2
+-   **Notes:** I have switched to a style of note-taking that relies on Claude to summarize the key points of the section into a few pivotal bullet points
+    -   I think this is a very good way of doing it, and it is especially nice given Claude's flexibility when it comes to the formatting of the inputs
+    -   Using ```` ``` ```` allows me to input markdown, which is excellent for formatting my inputs
 -   **Using devtools and Its Constituent Packages**
     -   Load devtools with `library(devtools)`
     -   Access all functions directly without qualification (e.g., `load_all()`) when developing packages interactively
@@ -347,3 +347,38 @@ use_devtools()
 -   **Getting development versions** - Install latest unreleased features with `devtools::install_github("r-lib/devtools")` - Alternative method using pak: `pak::pak("r-lib/devtools")`
 
 -   **2025-05-12:** Stopped at ***2.3. R Build Toolchain***
+
+-   **Build Toolchain Requirements:**
+
+    -   This is only necessary for packages that use C or C++, and that's not likely anything I will be using in my development early on
+
+    -   **Windows:** Install Rtools from CRAN (do not edit PATH; save version info to registry)
+
+    -   **macOS:** Install Xcode command line tools (`xcode-select --install`)
+
+    -   **Linux:** Install R development packages (e.g., `r-base-dev` on Ubuntu)
+
+-   **Verification:**
+
+    -   Run `devtools::dev_sitrep()` to check your development environment
+
+    -   Update any outdated packages or dependencies as suggested
+
+-   **Environment Checks:**
+
+    -   `dev_sitrep()`: reports package development situation, including:
+
+        -   R version
+        -   RStudio version
+        -   devtools status
+        -   package dependencies
+
+    -   This is very useful even outside of package development
+
+```{r}
+devtools::dev_sitrep()
+```
+
+# Chapter 3: Package Structure & State
+
+-   **2025-02-13:** Finished chapter 2. Next time is the start of chapter 3
