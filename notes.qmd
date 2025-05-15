@@ -382,3 +382,26 @@ devtools::dev_sitrep()
 # Chapter 3: Package Structure & State
 
 -   **2025-02-13:** Finished chapter 2. Next time is the start of chapter 3
+
+-   This is the end of a very long day today with 3 meetings, one of which was 4 hours.
+
+-   However, the satisfaction of moving forward is better than any release I get from walking away.
+
+-   **Five package states**:
+
+    -   **Source (development form)**
+
+    -   **Bundled**
+
+    -   **Binary**
+
+    -   **Installed**
+
+    -   **In-Memory**
+
+-   **Key transitions**:
+
+    -   Source → Installed (`devtools::install()` or `install.packages()`)
+    -   Installed → In-Memory (`library()`)
+
+-   **2025-05-15:** Stopped at the start of bundled packages. Source and package states made a lot of sense and wanted to be paying more attention when I did this.
