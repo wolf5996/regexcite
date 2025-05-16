@@ -383,9 +383,9 @@ devtools::dev_sitrep()
 
 -   **2025-02-13:** Finished chapter 2. Next time is the start of chapter 3
 
--   This is the end of a very long day today with 3 meetings, one of which was 4 hours.
+-   This is the end of a very long day today with 3 meetings, one of which was 4 hours
 
--   However, the satisfaction of moving forward is better than any release I get from walking away.
+-   However, the satisfaction of moving forward is better than any release I get from walking away
 
 -   **Five package states**:
 
@@ -404,4 +404,55 @@ devtools::dev_sitrep()
     -   Source → Installed (`devtools::install()` or `install.packages()`)
     -   Installed → In-Memory (`library()`)
 
--   **2025-05-15:** Stopped at the start of bundled packages. Source and package states made a lot of sense and wanted to be paying more attention when I did this.
+-   **2025-05-15:** Stopped at the start of bundled packages
+
+    -   Source and package states made a lot of sense and wanted to be paying more attention when I did this
+
+-   **Bundled packages** are compressed into `.tar.gz` files (source tarballs), serving as an intermediary between source and installed packages
+
+-   Create bundled packages from local development using `devtools::build()`
+
+-   **Key differences between source and bundled packages**:
+
+    -   Vignettes are pre-built with rendered outputs in inst/doc/
+    -   Temporary development files are removed
+    -   Files listed in `.Rbuildignore` are excluded
+
+-   The `.Rbuildignore` file is crucial for controlling which files from source are included in downstream forms, including **bundled**
+
+-   Always use `usethis::use_build_ignore()` to manage `.Rbuildignore` entries because:
+
+    -   It handles required regex anchoring automatically
+    -   Regular expressions must be anchored (e.g., `^notes$` not just `notes`)
+    -   Improper anchoring can unintentionally exclude important files
+
+-   Many `usethis` functions automatically add relevant files to `.Rbuildignore` when creating them (e.g., `use_readme_rmd()`)
+
+-   Common files to exclude via `.Rbuildignore`:
+
+    -   Files that generate package contents (README.Rmd, data creation scripts)
+    -   Development tools (RStudio project files, CI/CD configs)
+    -   Documentation outside CRAN's requirements (pkgdown files)
+
+-   Common entries in the `.Rbuildignore` file that exemplify the above file types are included below
+
+| Pattern               | Purpose                                          |
+|-----------------------|--------------------------------------------------|
+| `^.*\.Rproj$`         | Designates the directory as an RStudio Project   |
+| `^\.Rproj\.user$`     | Used by RStudio for temporary files              |
+| `^README\.Rmd$`       | An Rmd file used to generate README.md           |
+| `^LICENSE\.md$`       | Full text of the license                         |
+| `^cran-comments\.md$` | Comments for CRAN submission                     |
+| `^data-raw$`          | Code used to create data included in the package |
+| `^pkgdown$`           | Resources used for the package website           |
+| `^_pkgdown\.yml$`     | Configuration info for the package website       |
+| `^\.github$`          | GitHub Actions workflows                         |
+
+-   Following proper bundling conventions ensures compatibility with R's built-in tooling for package checking and installation
+
+```{r}
+# rbuildignore
+usethis::use_build_ignore("notes.qmd")
+```
+
+-   **2025-05-16**: stopped at section 3.4 Binary Packages and very happy with this book so far
