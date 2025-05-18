@@ -511,3 +511,19 @@ usethis::use_git_ignore(ignores = "images/")
     -   The information here is opening up a lot of discussion points and pathways I was not aware of
 
     -   Moving forward with these quick claude summaries and efficient reading is a very good combination
+
+**R In-Memory Packages Summary**
+
+-   **Package loading**: The `library()` function makes a package's functions available by loading it into memory and attaching it to the search path
+
+-   **Development limitations**: `library()` only works with installed packages, making it inefficient for iterative development
+
+-   **Developer alternative**: `devtools::load_all()` accelerates development by loading source packages directly into memory without requiring installation
+
+    -   This is the default for package development, and it is a handy command to iteratively test how code changes and performs as it develops
+
+-   **Technical distinction**: For package developers (unlike script writers), understanding the difference between loading and attaching packages is important
+
+    -   Will be covered later in the book
+
+-   **2025-05-19:** Stopped at package libraries
