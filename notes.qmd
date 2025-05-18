@@ -456,3 +456,58 @@ usethis::use_build_ignore("notes.qmd")
 ```
 
 -   **2025-05-16**: stopped at section 3.4 Binary Packages and very happy with this book so far
+    -   I have also started to aggressively implement the new convention of ignoring full stops in my sentences
+        -   If I need another sentence, I just nest it as a bullet point that flows from the preceding one
+
+**R Binary Packages Summary**
+
+-   **Purpose**: Binary packages (`.tgz` for macOS, `.zip` for Windows) allow distribution to users without development tools
+
+-   **Distribution**: CRAN is the primary creator/distributor of binaries, not individual maintainers
+
+-   **Creation**: Developers can create binaries with `devtools::build(binary = TRUE)` on the relevant OS
+
+-   **Structure differences**: Binary packages have a transformed internal structure:
+
+    -   R code is stored in parsed, efficient format (not as .R files)
+    -   Contains `Meta/` directory with cached metadata
+    -   Help content reorganized into `help`/ and `html/` folders
+    -   Compiled code moved to `libs/` directory
+    -   `inst/` contents moved to top-level
+        -   Several development files/folders are removed
+
+**R Installed Packages Summary**
+
+-   **Definition**: An installed package is a binary package that's been decompressed into a package library
+
+-   **Installation methods**: Multiple pathways exist to install packages:
+
+    -   `R CMD INSTALL` is the underlying tool for all package installation
+    -   `install.packages()` allows installation from within R sessions
+    -   RStudio provides GUI options in the Build pane
+    -   devtools/remotes offers specialized `install_*()` functions for various sources
+
+-   **Challenges**: Re-installing packages already in use can be problematic:
+
+    -   Windows users face "locked DLL" issues with compiled code
+    -   Clean R sessions with minimal loaded packages recommended for troubleshooting
+
+-   **Emerging solutions**: The `pak` package provides alternatives that:
+
+    -   Solves the Windows "locked DLL" problem
+    -   Offers advanced dependency management capabilities
+    -   Is increasingly recommended for package installation tasks
+
+![](images/clipboard-3399855533.png)
+
+```{r}
+usethis::use_git_ignore(ignores = "images/")
+```
+
+-   **2025-05-18:** Stopped at section 3.6 In-memory package
+
+    -   Making good progress here and should more time on this to wrap it up quicker
+
+    -   The information here is opening up a lot of discussion points and pathways I was not aware of
+
+    -   Moving forward with these quick claude summaries and efficient reading is a very good combination
