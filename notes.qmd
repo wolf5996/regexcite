@@ -527,3 +527,37 @@ usethis::use_git_ignore(ignores = "images/")
     -   Will be covered later in the book
 
 -   **2025-05-19:** Stopped at package libraries
+
+```{r}
+.libPaths()
+lapply(.libPaths(), list.dirs, recursive = FALSE, full.names = FALSE)
+```
+
+**R Package Libraries Summary**
+
+-   **Terminology clarification**:
+    -   A "library" is a directory containing installed packages
+    -   Common mistake: calling packages like `dplyr` "libraries" instead of "packages"
+    -   Correct usage: `library()` function loads a package
+-   **Multiple libraries structure**:
+    -   `.libPaths()` shows active library locations
+    -   Typical setup includes both user and system libraries:
+        -   **User library:** contains add-on/CRAN packages (first in search path)
+        -   **System library:** contains base R packages
+-   **Platform differences**:
+    -   **Windows:** typically has separate user/system libraries by default
+    -   **macOS/Linux:** often needs manual setup of user libraries
+    -   User libraries typically version-specific (need to reinstall packages after R minor version updates)
+-   **Advanced library management**:
+    -   Tools like `renv` manage project-specific libraries for reproducibility
+    -   Methods to control libraries (from persistent to temporary):
+        -   Environment variables (R_LIBS, R_LIBS_USER)
+        -   `.libPaths()` function
+        -   `withr::with_libpaths()` for temporary changes
+        -   Function-specific arguments
+-   **Critical note for developers**: Never use `library()` inside a package (packages use different dependency mechanisms than scripts)
+    -   We have already seen an example of this with `regexcite` where using the `stringr` package as a dependency was executed using `usethis::use_package()`
+-   **2025-05-19:** End of Chapter 3
+    -   Claude summaries are excellent, and this book is exceptional
+    -   Would be interested to see if there are any other books that Hadley is releasing any time soon that I could go through
+    -   Every book this guy produces is golden
