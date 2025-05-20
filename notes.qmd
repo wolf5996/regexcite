@@ -561,3 +561,66 @@ lapply(.libPaths(), list.dirs, recursive = FALSE, full.names = FALSE)
     -   Claude summaries are excellent, and this book is exceptional
     -   Would be interested to see if there are any other books that Hadley is releasing any time soon that I could go through
     -   Every book this guy produces is golden
+
+# Chapter 4: Fundamental Development Workflows
+
+**Before Creating a Package**
+
+-   Consider two types of payoff: the product itself (improved functionality) and the process (greater R mastery)
+-   Survey the existing landscape to understand similar packages
+-   It's valid to create your own implementation even if similar packages exist:
+    -   For learning purposes
+    -   If existing packages have unsuitable user interfaces or defaults
+-   Study domain-specific design patterns if your work falls into a well-defined area
+    -   This is highly relevant and something I already am aware of
+        -   For my desired `ggtcga` package, it is commonly accepted that the input dataset is a `summarizedExperiment` object and my output is going to be DEA analysis volcano plots, feature plots, and survival plots
+        -   These are the norms in the field and I intend to embrace these for my first package—I am sure there will be a lot of mistakes along the way, but experts get that way by building things
+        -   I also intend to use the same conventions embraced by packages that extend `ggplot2`, such as `ggstatsplot`, and `Seurat`, such as `SCPubr`
+            -   In a way, Seurat itself started off as a wrapper around `SingleCellExperiment` and `scater` that replicated their functionality and extended it by adding community detection algorithms for clustering
+
+**Naming Your Package**
+
+-   Formal requirements:
+    -   Only letters, numbers, and periods allowed
+    -   Must start with a letter
+    -   Cannot end with a period
+-   Best practices:
+    -   Choose a unique, Google-able name
+    -   Avoid names already on CRAN or Bioconductor
+    -   Use all lowercase letters for memorability
+        -   `ggtcga`
+    -   Prioritize pronounceable names
+    -   Consider modifications of words that evoke the problem
+    -   Abbreviations can work well
+    -   Adding an extra "R" is a common pattern
+    -   Be mindful of trademark issues
+-   Use the `available` package to evaluate potential names
+
+**Creating the Package**
+
+-   Two methods (which are actually the same):
+    -   Use `usethis::create_package()`
+    -   Or in RStudio: `File > New Project > New Directory > R Package`
+-   Creates minimal working package with:
+    -   `R/` directory
+    -   Basic `DESCRIPTION` file
+    -   Basic `NAMESPACE` file
+    -   RStudio project file (`.Rproj`)
+    -   Basic `.Rbuildignore` and `.gitignore` files
+-   Avoid using `package.skeleton()` which creates problematic packages
+
+**Package Location**
+
+-   Keep source packages separate from installed packages
+-   Common practice is to have a designated directory in your home folder
+-   Possible organization schemes:
+    -   By development role
+    -   By GitHub organization
+    -   By development stage
+    -   By publication or data product
+-   Choose a consistent organization system that works for your needs
+    -   The key thing to remember is that source and installed packages should be independent from one another
+    -   In my case, it is very likely that I will have them in directories inside my OneDrive, and I will develop them there
+-   **2025-05-20:** Start of chapter 4 and finished section 4.1
+    -   Will start on 4.2 next
+    -   The combination of Claude for summaries and my note-taking after is exceptional
