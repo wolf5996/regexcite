@@ -604,10 +604,13 @@ lapply(.libPaths(), list.dirs, recursive = FALSE, full.names = FALSE)
 -   Creates minimal working package with:
     -   `R/` directory
     -   Basic `DESCRIPTION` file
+        -   Description of the package and its functionality
     -   Basic `NAMESPACE` file
+        -   Contains the names of the functions that the package offers
     -   RStudio project file (`.Rproj`)
     -   Basic `.Rbuildignore` and `.gitignore` files
 -   Avoid using `package.skeleton()` which creates problematic packages
+    -   Old package development framework that is no longer relevant
 
 **Package Location**
 
@@ -643,6 +646,8 @@ lapply(.libPaths(), list.dirs, recursive = FALSE, full.names = FALSE)
 
     -   **Command Access**: Command Palette (Ctrl/Cmd + Shift + P) for quick access to all IDE commands
 
+    -   **Version Control:** built-in support with RStudio projects in the IDE that facilitates the entire process
+
 -   **Setup Options**:
 
     -   **New packages**: `create_package()` automatically creates RStudio Projects
@@ -650,6 +655,8 @@ lapply(.libPaths(), list.dirs, recursive = FALSE, full.names = FALSE)
     -   **Existing packages**: File \> New Project \> Existing Directory, `create_package()` on existing directory, or `usethis::use_rstudio()`
 
         -   In the documentation, it is recommended to use either `create_project()` or `create_package()`
+
+            -   Actually, `create_project()`, like `use_git()` and `use_github()`, is more useful across the board as I can use that for my analyses as well as package development
 
         -   Both would work better than `create_rstudio()` because they do the same thing and are more explicit about the purpose of the RStudio project
 
@@ -662,3 +669,109 @@ lapply(.libPaths(), list.dirs, recursive = FALSE, full.names = FALSE)
 -   **2025-05-22:** Stopped at section 4.2.3
 
     -   Brief work today as I am rather busy with preparation for Fadi's presentation
+
+**RStudio Project Structure**
+
+-   **Core Component**: Every RStudio Project contains a `.Rproj` file (typically named after the directory, e.g., `foo.Rproj` for directory "foo"). This is a simple text file that stores project settings and can be configured through Tools \> Project Options rather than manual editing.
+
+-   **Best Practice**: Align naming - if your directory is "foo", the project file should be `foo.Rproj`, and if it's an R package, the package name should also be "foo". Avoid nesting packages in subdirectories to minimize friction with tools.
+
+**Project Management**
+
+-   **Launching Projects**: - Double-click the `.Rproj` file in your file explorer - Use File \> Open Project within RStudio - Use productivity apps/launchers for streamlined access - Multiple projects can (and should) be open simultaneously
+
+-   **Project Alignment**: The `usethis` package assumes these three elements typically coincide: - Current RStudio Project - Active usethis project\
+
+    -   Current working directory - Use `proj_sitrep()` to diagnose when things get out of sync
+
+**Working Directory Philosophy**
+
+-   **Core Principle**: Keep the top-level package directory as your working directory throughout development. Avoid constantly changing directories with `setwd()`.
+
+-   **Why This Matters**:
+
+-   **Explicit vs. Implicit Paths**: Write paths that clearly express intent ("read from test directory") rather than assuming current location
+
+-   **Package State Resilience**: Packages exist in different forms during development - explicit paths work across all states
+
+-   **Tool Compatibility**: R CMD build/check/install processes change working directories unpredictably
+
+**Solutions**: Use path helpers like `testthat::test_path()`, `fs::path_package()`, and `rprojroot` for robust path construction.
+
+**Development Workflow with load_all()**
+
+-   **Central Function**: `load_all()` is the cornerstone of the devtools development cycle - it simulates installing and loading your package without actually installing it.
+
+-   **Key Benefits**:
+
+    -   **Rapid iteration**: Quick testing of code changes without full installation
+
+    -   **Namespace accuracy**: Develop under realistic namespace conditions
+
+    -   **Internal function access**: Call your own functions directly without `:::`
+
+    -   **Dependency management**: Use imported functions without `library()` calls
+
+    -   **Compiled code efficiency**: Especially valuable for packages with C/C++ code
+
+-   **Usage**:
+
+    -   **Keyboard shortcut:** Cmd+Shift+L (macOS), Ctrl+Shift+L (Windows/Linux)
+
+    -   **RStudio Build pane**
+
+    -   **Direct function call:** `devtools::load_all()`
+
+-   **Development Cycle**: Edit code → `load_all()` → test → repeat
+
+**Summary: R CMD check and Package Validation**
+
+-   **Purpose & Importance:**
+
+    -   R CMD check is the official validation tool for R packages
+
+    -   Essential for CRAN submission but recommended for all packages to catch common problems early
+
+-   **Recommended Workflow:**
+
+    -   **Use `devtools::check()`** instead of command line R CMD check for better integration
+
+    -   Run from R console: `devtools::check()` - RStudio shortcuts: Ctrl/Cmd + Shift + E - Available in Build menu/pane
+
+-   **Key Philosophy: Check Early & Often**
+
+-   **Common Mistake**: Working too long before first check, then discovering many problems
+
+-   **Best Practice**: Check multiple times per day when actively developing
+
+-   **Rationale**: Earlier problem detection = easier fixes
+
+-   **What check() Does Internally**
+
+    1.  Updates documentation via `devtools::document()`
+
+    2.  Bundles the package for clean slate checking
+
+    3.  Sets `NOT_CRAN` environment variable to "true"
+
+    4.  Runs full R CMD check process
+
+-   **Check Results Types**
+
+    1.  **ERRORs**: Severe problems - fix regardless of CRAN plans
+
+    2.  **WARNINGs**: Likely problems - must fix for CRAN submission
+
+    3.  **NOTEs**: Mild issues - eliminate all for CRAN; evaluate individually if not submitting
+
+-   **Simple Workflow**
+
+    1.  Run `devtools::check()`
+
+    2.  Fix first problem
+
+    3.  Repeat until clean
+
+-   **Direct Usage:** For advanced users: Run `R CMD check` directly in terminal on package bundles, but `devtools::check()` is preferred for development workflow integration.
+
+-   **2025-06-05:** Finished chapter 4. A little sloppy tired because I am fasting. All done though.
