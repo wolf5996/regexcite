@@ -775,3 +775,33 @@ lapply(.libPaths(), list.dirs, recursive = FALSE, full.names = FALSE)
 -   **Direct Usage:** For advanced users: Run `R CMD check` directly in terminal on package bundles, but `devtools::check()` is preferred for development workflow integration.
 
 -   **2025-06-05:** Finished chapter 4. A little sloppy tired because I am fasting. All done though.
+
+# Chapter 5: The Package `Within`
+
+Here's a brief summary of the key points covered:
+
+-   **Main goal**: Transform a data analysis script into reusable R package components
+
+-   **Example scenario**: Script that processes swimming survey data (location + temperature) with mixed US/UK terminology and temperature units
+
+-   **Original script issues**: Repetitive code, copy/paste patterns, mixed code and data, inefficient practices
+
+-   **Refactoring improvements**:
+
+    -   Used tidyverse packages (readr, dplyr)
+    -   Created lookup table for location/language mapping
+        -   This was a very nice way of doing refactorization that I did not see before
+            -   However, a better way to do this is using `dplyr::recode()`
+    -   Extracted helper functions (f_to_c, timestamp, outfile_path)
+    -   Separated data from logic
+        -   The idea here is to code functions first and then use them to process the data
+        -   This separation makes the code modular and reusable, and this coding style then facilitates a transition to package creation
+            -   In future analyses I do, I will start embracing this style of coding a bit more where possible
+                -   Might be worthwhile to create a package on top of Seurat that adds all of the Seurat options that I have been wanting
+                    -   Literally building a wrapper on top of the wrapper
+
+-   **Key lesson**: Refactoring scripts to isolate reusable data and functions makes it easier to identify components that could become a package
+
+-   **End result**: Cleaner, more maintainable code that reveals the "package that lurks within" the original script
+
+-   **2025-06-06:** Stopped at the start of section 5.3
