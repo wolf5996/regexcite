@@ -805,3 +805,36 @@ Here's a brief summary of the key points covered:
 -   **End result**: Cleaner, more maintainable code that reveals the "package that lurks within" the original script
 
 -   **2025-06-06:** Stopped at the start of section 5.3
+
+**Converting Scripts to Packages - Key Points**
+
+**The Process (Charlie → Delta → Echo → Foxtrot → Golf)**
+
+-   **Charlie**: Start by moving reusable code and data into separate helper files
+-   **Delta**: First package attempt fails - functions not exported, CSV files not accessible, dependencies not declared
+-   **Echo**: Working package with proper `@export` tags, namespace-qualified function calls (`dplyr::`), and DESCRIPTION dependencies
+-   **Foxtrot**: Fix build time vs. run time issues - move `Sys.time()` calls inside functions, not as top-level assignments
+-   **Golf**: Handle side effects properly using `withr` package to make temporary state changes without affecting user's session
+
+**Key Lessons: Script vs. Package**
+
+-   **Don't convert everything**: Extract recurring operations that appear across multiple projects, not entire scripts
+-   **Scripts still exist**: You'll still have R scripts, R Markdown reports, and Shiny apps - packages just make them more concise and maintainable
+-   **Identify patterns**: Look for code you copy/paste between projects and operations you do repeatedly
+
+**Key Lessons: Finding the Package Within**
+
+-   **Start messy**: Begin with scattered, idiosyncratic scripts across different projects
+-   **Notice repetition**: Identify needs that come up over and over again
+-   **Refactor gradually**: Move from copy/paste to helper functions to separate files
+-   **Extract when ready**: Once you have helper functions in their own file, you're ready for a package
+
+**Key Lessons: Package Code is Different**
+
+-   **Dependencies**: Use DESCRIPTION file and namespace-qualified calls (`pkg::function()`), not `library(pkg)` calls
+-   **Data storage**: Use package-specific methods for persistent data/files, not just dumping files in the package
+-   **Function visibility**: Be explicit about exports with `@export` - functions are internal by default
+-   **Timing discipline**: Ensure code runs at intended time (build vs. run time) and avoid unintended side effects
+-   **State management**: Use `withr` package for temporary changes to avoid affecting user's R session
+
+**2025-06-10: End of chapter 5**
