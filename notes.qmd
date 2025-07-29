@@ -860,3 +860,27 @@ Here's a brief summary of the key points covered:
 -   **Development workflow**: `load_all()`, `test()`, and `check()` for package development
 
 **2025-06-17: Stopped at the start of section 6.4**
+
+**When Code Executes:**
+
+-   Package code runs at build time (when the package is created), not when users load it - this means objects are cached from the build environment, which can cause problems if build and user environments differ
+
+**Write Functions, Not Top-Level Code:**
+
+-   Any R code outside of functions is suspicious - instead of creating objects at the package level, wrap that logic in functions that execute at runtime when users actually call them
+
+**Don't Modify the Global Environment:**
+
+-   Avoid functions like `library()`, `require()`, `source()`, `setwd()`, `options()`, and `par()` that change global settings - if you must use them, clean up afterwards using tools like the withr package
+
+**Don't Assume User Environment:**
+
+-   Your functions will run on different systems with different locales, working directories, and settings than yours - write defensive code that doesn't rely on specific environmental assumptions
+
+**Real-World Examples:**
+
+-   File paths from `system.file()` that work during build but fail on user machines, color display objects cached from headless build servers, and function aliases that get stuck with old buggy versions all illustrate these principles
+
+The core principle is that package code should create reusable functions that work reliably across different environments, not execute specific logic that gets baked in at build time.
+
+**2025-06-17: Stopped at the start of section 6.5.1**
