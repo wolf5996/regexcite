@@ -884,3 +884,41 @@ Here's a brief summary of the key points covered:
 The core principle is that package code should create reusable functions that work reliably across different environments, not execute specific logic that gets baked in at build time.
 
 **2025-06-17: Stopped at the start of section 6.5.1**
+
+**Managing State**
+
+-   Use **withr package** or **`on.exit()`** to restore environment changes when functions exit
+
+-   **withr helpers:** `with_*()` for code snippets, `local_*()` for function-duration changes
+
+-   Always use **add = TRUE** with `on.exit()`
+
+**Side Effects**
+
+-   **Isolate** plotting/output into dedicated functions
+
+-   Use **`.onLoad()`/`.onAttach()`** for package initialization
+
+-   **Prefix package options** with package name
+
+**Development Workflow**
+
+-   **Iterate frequently:** Edit → `document()` → `load_all()` → `test()` → `check()`
+
+-   **Run checks often** - don't wait until end
+
+**CRAN Requirements**
+
+-   **ASCII characters only** in .R files
+
+-   Use **Unicode escapes** like "\u2022" for special characters
+
+-   Check for hidden non-ASCII with **tools::showNonASCII()**
+
+**2025-07-30:** Chapter 6 is complete and starting chapter 7 next time
+
+-   I am thinking I should start package development soon because I feel like I am getting bogged down in useless details instead of learning the actual process by doing
+
+-   I just want to finish the next chapter about working with data inside the R package before starting because I will need test data and the sample development workflow they showed me in chapter 1 did not use any external data
+
+-   This chapter however has been very cryptic and the advice mostly pertains to shit that I am not going to be dealing with in the early stages of development
