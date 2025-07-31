@@ -922,3 +922,49 @@ The core principle is that package code should create reusable functions that wo
 -   I just want to finish the next chapter about working with data inside the R package before starting because I will need test data and the sample development workflow they showed me in chapter 1 did not use any external data
 
 -   This chapter however has been very cryptic and the advice mostly pertains to shit that I am not going to be dealing with in the early stages of development
+
+# Chapter 7: Data
+
+**Data in R Packages**
+
+**Storage Locations**
+
+-   **`data/`**: User-accessible data as `.rda` files (most common)
+-   **`R/sysdata.rda`**: Internal data for package functions
+-   **`inst/extdata/`**: Raw files (CSV, Excel, etc.)
+-   **Environments**: Dynamic session-specific data
+-   **Sanctioned locations**: Persistent cross-session data
+
+**Main Workflow with `data/`**
+
+-   Use `usethis::use_data(my_data)` to automatically:
+    -   Save as `data/my_data.rda`
+    -   Enable lazy loading via `LazyData: true` in DESCRIPTION
+    -   Make data available as `pkg::my_data` or `my_data` after `library(pkg)`
+-   Lazy loading = data only loads when accessed, saving memory
+-   Avoid unnecessary `data()` calls - data is immediately available
+
+**Data Preparation**
+
+-   Keep data-generating code in `data-raw/` (use `usethis::use_data_raw()`)
+-   Scripts should end with `usethis::use_data()` call
+-   Enables reproducible data reconstruction
+
+**Documentation (Required)**
+
+-   Document in `R/data.R` using roxygen2
+-   **Key tags:** `@format` (structure/variables), `@source` (origin)
+-   Never use `@export` for datasets
+
+**Technical Notes**
+
+-   **Size**: \<1MB for CRAN
+-   **Compression**: Default "bzip2", experiment with "gzip"/"xz"
+-   **Encoding**: UTF-8 for non-ASCII (generates harmless CRAN notes)
+-   **Best practice**: One object per `.rda` file with matching names
+
+**Key Benefit**
+
+The `devtools`/`usethis` ecosystem reduces complex package data workflows to simple function calls, making development structured and maintainable
+
+**2025-07-31:** Stopped at section 7.2, and this chapter is very good imo with lots of important points that are vital for my package development
