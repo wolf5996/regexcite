@@ -947,7 +947,7 @@ The core principle is that package code should create reusable functions that wo
 **Data Preparation**
 
 -   Keep data-generating code in `data-raw/` (use `usethis::use_data_raw()`)
--   Scripts should end with `usethis::use_data()` call
+-   Scripts in `data-raw/` should end with `usethis::use_data()` call to then add the data being generated as `rda` files under the `data/` directory
 -   Enables reproducible data reconstruction
 
 **Documentation (Required)**
@@ -968,3 +968,56 @@ The core principle is that package code should create reusable functions that wo
 The `devtools`/`usethis` ecosystem reduces complex package data workflows to simple function calls, making development structured and maintainable
 
 **2025-07-31:** Stopped at section 7.2, and this chapter is very good imo with lots of important points that are vital for my package development
+
+**Internal Data (R/sysdata.rda)**
+
+**Purpose & Storage**
+
+-   Use `R/sysdata.rda` for internal data that package functions need but users shouldn't access
+
+-   For large/complex objects too big to define directly in R code
+
+**Creation & Management:**
+
+-   Create with `usethis::use_data(internal = TRUE)` - puts all internal objects in one file
+-   Store generation code in `data-raw/`, not `R/`
+-   Available to package functions, tests, and after `devtools::load_all()`
+
+**Key Differences from External Data:**
+
+-   No documentation needed (not exported)
+-   Always lazy-loaded regardless of `LazyData` field
+-   All objects in one file vs. separate files for external data
+
+**Raw Data Files (inst/extdata/)**
+
+**Purpose & Location:**
+
+-   Store original/raw files in `inst/extdata/` for examples and demos
+-   Files move to `extdata/` when package is installed
+-   Main use: when package functionality acts on external files
+
+**Common Use Cases:**
+
+-   File parsing packages (readr, readxl, xml2, archive)
+-   Data packages providing multiple formats (palmerpenguins, gapminder with CSV versions)
+
+**Benefits:**
+
+-   Useful for documentation and tests
+-   Helps teaching with familiar datasets
+-   Plain text versions track data changes over time
+
+**2025-08-04:** stopped at section 7.3.1
+
+-   I am starting to think it could be a very good idea to start creating a very small package of helpful utilities and functions that I have to iterate through often for scRNA-Seq analysis
+
+    -   What I have in mind are custom versions of `SCPubr` functions that include my most used settings, a simpler `ggsave` call that uses pdf by default and uses large width and height parameters out of the box, and a GSEA barplot figure that is way better than the shit `clusterprofiler` spits out
+
+    -   Will start working on that some time towards the end of this week to start getting some real hands-on experience with package development
+
+        -   Maybe, this shit works, and I finally have something new that is enhancing my workflows
+
+            -   Imagine having helper scripts that contain my preferred presets and wrapping these into packages of my own making
+
+                -   Now that would be fun and interesting and would add a lot to my computational skillset
