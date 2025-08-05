@@ -1021,3 +1021,78 @@ The `devtools`/`usethis` ecosystem reduces complex package data workflows to sim
             -   Imagine having helper scripts that contain my preferred presets and wrapping these into packages of my own making
 
                 -   Now that would be fun and interesting and would add a lot to my computational skillset
+
+**Remainder of Chapter 7**
+
+-   `inst/` directory contains supporting stuff that does not go into `R/`, `data/`, or `vignettes/`
+
+-   Section 7.3 is frankly too technical and thus a waste of time—I have gone through it briefly and the details are just too boring at this point
+
+-   Gone through the rest of the chapter and frankly all of this stuff is far too technical my g
+
+-   Chapter 7 is done
+
+    -   I tried summarizing the chapter using chatGPT, and it seems to do a better job on summaries than claude
+
+        -   When the time comes for my package development work, I will create a more concise version of these notes that only included the most key points
+
+# Chapter 8: Other Components
+
+**📦 Beginner-Friendly Summary of Miscellaneous Package Components**
+
+Chapter 8 of *R Packages* introduces **less common package directories**. Most are optional for beginners, but here’s what matters:
+
+#### **1️⃣ `src/`: Source**
+
+-   Holds **compiled code** (C or C++).
+-   Boosts performance or uses external libraries.
+-   **Ignore for now** unless you move into C++ or heavy performance work.
+
+#### **2️⃣ `inst/`: Install**
+
+-   Holds **extra files you want included** in the **installed** package.
+
+    -   Installed is the key word here.
+
+-   **All files move to the root** of the package when installed.
+
+-   Common uses:
+
+    -   `inst/extdata/` → raw example files (CSV, FASTQ, etc.)
+    -   `inst/CITATION` → how to cite the package
+    -   `inst/rmarkdown/templates/` → custom R Markdown templates
+    -   RStudio add-ins or Shiny examples
+
+-   ⚡ **Think of it as a “misc storage” folder for user-accessible files.**
+
+#### **3️⃣ `tools/`**
+
+-   Holds **auxiliary build or config files** (often with `configure`).
+-   **Advanced only**; safe to ignore for now.
+
+#### **4️⃣ `demo/`**
+
+-   For **legacy demos**.
+-   Modern practice → use **vignettes** or **README examples** instead.
+
+#### **5️⃣ `exec/`**
+
+-   For **executable scripts**, automatically flagged as executable.
+-   Rarely used; modern practice often prefers `inst/`.
+
+#### **6️⃣ `po/`**
+
+-   For **translations (internationalization)**.
+-   Advanced topic; **ignore for now**.
+
+### **💡 Beginner Takeaways**
+
+-   **Focus on `inst/`** for any extra files like raw data or templates.
+-   **Ignore `src/`, `tools/`, `demo/`, `exec/`, and `po/`** until your package grows.
+-   **Prefer vignettes and README over demos**, and **`inst/extdata`** for raw example files.
+
+**2025-08-05:** Chapter 8 is over, and I am starting to aggressively move through the book and ignore bits and pieces that I think are useless
+
+-   Whilst the explanation of the book is to-the-point, there is a lot of extra stuff that is not necessary for a beginner
+
+    -   That's why I am skipping that shit and moving forward
