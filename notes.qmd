@@ -39,6 +39,12 @@ format:
 
             -   If you are wondering why other people would not do the same thing, well it's because they do not have the foresight needed to learn fundamentals and the vision necessary to execute on these using LLMs to handle details and using their brains to handle higher level management of LLM performance and abstraction.
 
+-   Another important side project I can do is a small package containing helper functions I use
+
+    -   These are going to be the same visualisation functions I use but with my preferred presets
+
+    -   The idea here is to create a very simple package that I can use myself, thereby familiarizing myself with the developer and user sides of the package
+
 # Notes
 
 -   Throughout this book:
@@ -1042,13 +1048,13 @@ The `devtools`/`usethis` ecosystem reduces complex package data workflows to sim
 
 Chapter 8 of *R Packages* introduces **less common package directories**. Most are optional for beginners, but here’s what matters:
 
-#### **1️⃣ `src/`: Source**
+**1️⃣ `src/`: Source**
 
 -   Holds **compiled code** (C or C++).
 -   Boosts performance or uses external libraries.
 -   **Ignore for now** unless you move into C++ or heavy performance work.
 
-#### **2️⃣ `inst/`: Install**
+**2️⃣ `inst/`: Install**
 
 -   Holds **extra files you want included** in the **installed** package.
 
@@ -1065,27 +1071,27 @@ Chapter 8 of *R Packages* introduces **less common package directories**. Most a
 
 -   ⚡ **Think of it as a “misc storage” folder for user-accessible files.**
 
-#### **3️⃣ `tools/`**
+**3️⃣ `tools/`**
 
 -   Holds **auxiliary build or config files** (often with `configure`).
 -   **Advanced only**; safe to ignore for now.
 
-#### **4️⃣ `demo/`**
+**4️⃣ `demo/`**
 
 -   For **legacy demos**.
 -   Modern practice → use **vignettes** or **README examples** instead.
 
-#### **5️⃣ `exec/`**
+**5️⃣ `exec/`**
 
 -   For **executable scripts**, automatically flagged as executable.
 -   Rarely used; modern practice often prefers `inst/`.
 
-#### **6️⃣ `po/`**
+**6️⃣ `po/`**
 
 -   For **translations (internationalization)**.
 -   Advanced topic; **ignore for now**.
 
-### **💡 Beginner Takeaways**
+**💡 Beginner Takeaways**
 
 -   **Focus on `inst/`** for any extra files like raw data or templates.
 -   **Ignore `src/`, `tools/`, `demo/`, `exec/`, and `po/`** until your package grows.
@@ -1096,3 +1102,53 @@ Chapter 8 of *R Packages* introduces **less common package directories**. Most a
 -   Whilst the explanation of the book is to-the-point, there is a lot of extra stuff that is not necessary for a beginner
 
     -   That's why I am skipping that shit and moving forward
+
+# Chapter 9: DESCRIPTION
+
+📦 **Key Points About DESCRIPTION**
+
+-   **Purpose**:
+
+    -   Defines your package as an R package (any folder with a DESCRIPTION is a package).
+    -   Stores **metadata**: name, version, authors, dependencies, URLs, and license.
+
+-   **Essential Fields**:
+
+    1.  **Package** – Short, unique name of your package.
+
+    2.  **Title** – One-line, title case, no period; describes what the package does.
+
+    3.  **Description** – One-paragraph explanation of the package; indent multi-line entries.
+
+    4.  **Version** – Use `0.0.0.9000` for development versions.
+
+    5.  **Authors\@R** – Use `person()` function to list authors/maintainers with roles:
+
+        -   `cre` = maintainer (must have email)
+        -   `aut` = main authors
+        -   `ctb` = contributors
+
+    6.  **License** – Mandatory, use a standard form (`use_mit_license()`, `use_gpl3_license()`).
+
+    7.  **URL / BugReports** – Link to website, repo, and issue tracker (auto-added by `usethis::use_github()`).
+
+-   **Formatting Tips**:
+
+    -   Use **single quotes** around R packages or software names.
+    -   Avoid “A package for …” in Title or Description.
+    -   Description lines ≤80 characters; indent subsequent lines by 4 spaces.
+    -   **CRAN checks** pay special attention to Title, Description, and License.
+
+-   **Tools to Help**:
+
+    -   `usethis::create_package()` → Generates minimal DESCRIPTION.
+    -   `desc` package → Edit DESCRIPTION programmatically.
+    -   `usethis::use_github()` → Adds URL and BugReports automatically.
+
+**2025-08-06:** Stopped at section 9.6 because it's important and needs my full attention—I also got a bit bored as I usually do
+
+-   Continuing with the pattern of dashing through chapters, this one is going by quickly even though it is very useful
+
+    -   Easier to do work quickly on two cups of coffee
+
+        -   Who would have thought?!

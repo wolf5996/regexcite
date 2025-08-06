@@ -2,7 +2,7 @@ Package: regexcite
 Title: Test Package
 Version: 0.0.0.9000
 Authors@R: 
-    person("Badran", "Elshenawy", , "badran.elshenawy@ndm.ox.ac.uk", role = c("aut", "cre"))
+    person(family = "Elshenawy", given = "Badran", , email = "badran.elshenawy@ndm.ox.ac.uk", role = c("aut", "cre"))
 Description: 
     A package to test the regexcite package.
     The package is designed to provide a set of functions for working with regular expressions in R.
