@@ -1267,3 +1267,14 @@ Chapter 8 of *R Packages* introduces **less common package directories**. Most a
 **2025-08-07:** Chapter 9 over and continuing the quick move through the book
 
 -   Again, working on two cups of coffee hits different
+
+# Chapter 10: Dependencies - Mindset & Background
+
+-   **When to add dependencies:** Framework for deciding if a dependency is worth the risk/reward
+-   **Dependency types:** Guidance on choosing between `Imports`, `Suggests`, and `Depends`
+-   **Namespaces:** How R's namespace system prevents package conflicts and ensures consistent behavior
+-   **Beginner-friendly:** Can skip initially but important for more complex packages
+
+**2025-08-13:** Stopped at the beginning of chapter 10.1
+
+-   Very little progress today as I am operating on very little sleep and wanted to simply start the chapter without pushing too far in it
