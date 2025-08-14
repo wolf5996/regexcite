@@ -1278,3 +1278,25 @@ Chapter 8 of *R Packages* introduces **less common package directories**. Most a
 **2025-08-13:** Stopped at the beginning of chapter 10.1
 
 -   Very little progress today as I am operating on very little sleep and wanted to simply start the chapter without pushing too far in it
+
+**Low-cost dependencies:**
+
+-   Base R packages (`base`, `utils`, `stats`) and recommended packages
+-   Packages with few upstream dependencies (like `rlang`)
+-   Already-installed popular packages (like `ggplot2`)
+
+**High-cost dependencies:**
+
+-   Non-CRAN packages requiring special setup
+
+-   Packages with many recursive dependencies (\~250+)
+
+-   Large/slow-compiling packages (some take 100+ seconds vs 5 seconds)
+
+-   Packages requiring system dependencies (Java, external libraries)
+
+**Key factors:** Installation burden, maintenance quality, and functionality value all matter more than just counting total number of dependencies.
+
+**2025-08-14:** stopped at section 10.1.2
+
+-   Progress is a bit slow this week due to turbulances
