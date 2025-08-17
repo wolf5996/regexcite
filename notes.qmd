@@ -1299,4 +1299,37 @@ Chapter 8 of *R Packages* introduces **less common package directories**. Most a
 
 **2025-08-14:** stopped at section 10.1.2
 
--   Progress is a bit slow this week due to turbulances
+-   Progress is a bit slow this week due to turbulanecs
+
+**Dependency Philosophy**
+
+-   **Take a holistic approach** - Consider your audience (package authors need lean packages, data scientists can handle more dependencies)
+-   **Balance trade-offs** - Dependencies give you features/bug fixes but cost installation time, disk space, and maintenance burden
+-   **Be quantitative** - Use tools like `pak::pkg_deps_tree()` to analyze dependency weight rather than just minimizing count
+
+**Tidyverse-Specific Guidelines**
+
+-   **Never depend on meta-packages** - Don't put `tidyverse` or `devtools` in Imports; depend on specific packages instead
+    -   I did see that as a warning when I was developing my own package
+-   **"Free" dependencies** - `rlang`, `cli`, `glue`, `withr`, `lifecycle` are considered lightweight and acceptable
+-   **Easy setup** - Use `usethis::use_tidy_dependencies()` to add these core tidyverse dependencies to your DESCRIPTION
+-   **CRAN limit** - Avoid 20+ non-default packages in Imports (triggers a NOTE)
+    -   Try to handle all notes in your package before submission and in general
+
+**Imports vs Suggests**
+
+-   **Imports** - Required packages that auto-install with your package
+-   **Suggests** - Optional packages for tests, vignettes, or rare functions; users must install separately
+    -   Early stages of package development do not usually require Suggests at all, so put everything you need in Imports, especially since my audience is other bioinformaticians rather than package developers
+
+**Namespaces (10.2.1 Simplified)**
+
+-   **Problem**: Multiple packages can have functions with the same name (e.g., `lubridate::here()` vs `here::here()`)
+-   **Solution**: Use `package::function()` syntax to specify exactly which function you want
+    -   This is already the default behaviour I am using in all of my package scripting
+-   **Key insight**: Package functions are protected from user interference - even if you redefine `var()`, `sd()` still works because it looks in the `stats` namespace first, not your global environment
+-   **Bottom line**: Namespaces prevent chaos by ensuring package functions always find their intended dependencies
+
+**2025-08-18: Stopped at section 10.2.2**
+
+-   Brisk progress today as this is becoming more relevant for my own real-life package development with `BadranSeq` and the package I am keen to develop for my brother's analysis
