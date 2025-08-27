@@ -1363,3 +1363,43 @@ Chapter 8 of *R Packages* introduces **less common package directories**. Most a
 -   **Common pattern**: Package listed in `Imports` but not in NAMESPACE
 
     -   I can vouch for this because almost all of my packages in `Imports` under DESCRIPTION are not in the NAMESPACE file and are referred to in my package source code under `R/` using `::`
+
+-   Summary here: use `::` to refer to external functions in your package source code, import specific functions minimally using `importFrom`, and almost never import an entire external package's namespace
+
+    -   The upside of this import fuckery is that you can use external functions without referencing the package they came from, which is fantastically retarded because you can't then tell your own functions from the external package's functions
+
+**Default approach: Use `package::function()` syntax**
+
+-   Call external functions like `aaapkg::aaa_fun()` in your code
+-   Makes it clear which functions are external vs. your own
+-   Avoids name conflicts
+
+**When to import functions instead:**
+
+-   Operators (like `%>%` pipe) - you can't use `::` with these
+-   Functions you use constantly - reduces typing and improves readability
+-   Functions called millions of times in loops - minor performance benefit
+
+**How to import:**
+
+-   Single function: `#' @importFrom aaapkg aaa_fun` in roxygen comments
+-   Whole package: `#' @import aaapkg` (rarely recommended)
+-   Run `devtools::document()` to update your NAMESPACE file
+
+**Managing unused imports:**
+
+If R complains about an unused import, add a reference like:
+
+``` r
+ignore_unused_imports <- function() {
+  aaapkg::aaa_fun  # Just reference it, don't call it
+}
+```
+
+The main tradeoff: importing makes code cleaner but obscures where functions come from. The `::` syntax is more explicit but verbose.
+
+**2025-08-25:** Stopped at section 11.4.2
+
+-   Take-home message is use `package::function()` syntax unless you absolutely need a package or a function to be imported
+
+    -   This will rarely be the case so stick to this syntax, especially with the existence of LLMs that can handle the verbosity
