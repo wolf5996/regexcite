@@ -1396,10 +1396,42 @@ ignore_unused_imports <- function() {
 }
 ```
 
-The main tradeoff: importing makes code cleaner but obscures where functions come from. The `::` syntax is more explicit but verbose.
+**The main tradeoff:** importing makes code cleaner but obscures where functions come from. The `::` syntax is more explicit but verbose.
 
-**2025-08-25:** Stopped at section 11.4.2
+-   **2025-08-25:** Stopped at section 11.4.2
 
--   Take-home message is use `package::function()` syntax unless you absolutely need a package or a function to be imported
+    -   Take-home message is use `package::function()` syntax unless you absolutely need a package or a function to be imported
 
-    -   This will rarely be the case so stick to this syntax, especially with the existence of LLMs that can handle the verbosity
+        -   This will rarely be the case so stick to this syntax, especially with the existence of LLMs that can handle the verbosity
+
+**Book coverage:** The R Packages book explains that while you *can* use shortcuts like `import` or `library()` calls to avoid `package::function()` syntax, these create inconsistencies and potential issues.
+
+**Your core principle:** Always use `package::function()` syntax for external functions everywhere - test code, examples, vignettes, main code. No exceptions.
+
+**Why this matters now:**
+
+-   LLMs make this convention trivial to follow - just ask them to annotate all external functions in your code
+-   Work function-by-function with LLMs to avoid hallucination and maintain clean code
+-   The book covers shortcuts because developers used to be lazy about explicit syntax, but LLM assistance removes that excuse
+
+**Dependency reality check:**
+
+-   `Imports` = guaranteed to be available
+-   `Suggests` = probably not installed (most users skip these during installation)
+-   `library()` calls are possible but you prefer explicit `package::function()` for maximum clarity
+
+**Your stance:** Ignore the book's shortcuts and embrace explicit syntax everywhere, leveraging LLMs to make it effortless and consistent.
+
+-   **2025-08-29:** Stopped at section 11.5.1
+
+    -   Same points as the last chapter but expanded
+
+        -   All in all a very boring chapter to work on, and these chapters do not seem to add a lot more on top of the introductory chapter for the same material
+
+            -   `Imports` lists all of the packages that your package needs
+
+            -   `Suggests` lists optional packages that are typically ignored
+
+            -   `Depends` is no longer used and only relevant for R version
+
+        -   That's the gist of this boredom
