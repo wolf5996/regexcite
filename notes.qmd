@@ -1435,3 +1435,21 @@ ignore_unused_imports <- function() {
             -   `Depends` is no longer used and only relevant for R version
 
         -   That's the gist of this boredom
+
+**Chapter Summary: Package Dependencies and Exports**
+
+-   **Dependencies in Depends**: When a package is listed in `Depends`, it gets attached automatically when your package loads, allowing direct function calls without namespace syntax in examples and vignettes, though `pkg::function()` syntax is still recommended in package code
+
+-   **Nonstandard Dependencies**: Use `Remotes` field for development versions from GitHub or other non-CRAN sources (temporary only, don't submit to CRAN), and `Config/Needs/*` fields for packages needed only for specialized tasks like website building or testing
+
+-   **Export Strategy**: Export only functions intended for public use since exported functions require documentation and interface stability - it's better to export too little than too much, and utility functions should generally remain internal
+
+-   **Re-exporting Functions**: Make functions from dependency packages available to your users by listing the source package in `Imports` and using `@export` and `@importFrom` roxygen tags together
+
+-   **S3 Methods and Namespace**: Export S3 generics you own with `@export`, use `@exportS3Method pkg::generic` for methods of generics from other packages (especially suggested dependencies), and regular `@export` works for methods of base R generics
+
+-   The key principle throughout is maintaining clean separation between public API and internal implementation while properly managing dependencies across different usage contexts
+
+<!-- -->
+
+-   **2025-09-15:** End of chapter 11, which was a waste of time and energy—it was far too specific to be useful to a beginner or intermediate package developer
