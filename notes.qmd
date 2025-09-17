@@ -1453,3 +1453,23 @@ ignore_unused_imports <- function() {
 <!-- -->
 
 -   **2025-09-15:** End of chapter 11, which was a waste of time and energy—it was far too specific to be useful to a beginner or intermediate package developer
+
+# Chapter 12: Licensing
+
+-   **Two main license types**: Permissive licenses (like MIT) allow free use with minimal restrictions, while copyleft licenses (like GPL) require derivatives to also be open source
+
+-   **R community preference**: Unlike other programming languages, \~70% of CRAN packages use copyleft licenses (GPL) compared to only \~20% using permissive licenses
+
+-   **Quick license selection guide**: Use MIT for minimal restrictions, GPL for ensuring derivatives stay open source, CC0 for data packages, or proprietary for closed-source packages
+
+-   **Key licensing files**: DESCRIPTION contains the license field, LICENSE file holds template details or full non-standard license text, and LICENSE.md contains the full license text (ignored by CRAN)
+
+-   **Relicensing challenges**: Changing licenses after publication requires permission from all contributors who hold copyright, making it important to choose carefully from the start
+
+-   **Special considerations**: Data-focused packages should use Creative Commons licenses (CC0 or CC-BY) rather than code-focused licenses like MIT or GPL
+
+-   **2025-09-17:** Stopped at section 12.3
+
+    -   Going through this rapidly and enjoying the read
+
+    -   Claude is doing a very good job of summarizing lots of information into a few bullet points
