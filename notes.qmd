@@ -15,7 +15,7 @@ format:
 
 -   Working with TCGA data, I came to the realization that TCGA lacks good visualisation packages. I can create my own package, and that would be a solid publication on its own.
 
--   What I will do now is go through [R packages (2e)] to learn the basics of package development in general and for R specifically.
+-   What I will do now is go through [R packages (2e)](https://r-pkgs.org/) to learn the basics of package development in general and for R specifically.
 
 -   I will then use my own skills in combination with ChatGPT/LLMs to create a full package with documentation.
 
@@ -44,8 +44,6 @@ format:
     -   These are going to be the same visualisation functions I use but with my preferred presets
 
     -   The idea here is to create a very simple package that I can use myself, thereby familiarizing myself with the developer and user sides of the package
-
-  [R packages (2e)]: https://r-pkgs.org/
 
 # Notes
 
@@ -90,19 +88,19 @@ packageVersion("devtools")
 
 -   The relevant files created by this are:
 
-    -   `.Rbuildignore` lists files that we need to have around but that should not be included when building the R package from source. If you aren’t using RStudio, [`create_package()`] may not create this file (nor `.gitignore`) at first, since there’s no RStudio-related machinery that needs to be ignored. However, you will likely develop the need for `.Rbuildignore` at some point, regardless of what editor you are using. It is discussed in more detail in [Section 3.3.1].
+    -   `.Rbuildignore` lists files that we need to have around but that should not be included when building the R package from source. If you aren’t using RStudio, [`create_package()`](https://usethis.r-lib.org/reference/create_package.html) may not create this file (nor `.gitignore`) at first, since there’s no RStudio-related machinery that needs to be ignored. However, you will likely develop the need for `.Rbuildignore` at some point, regardless of what editor you are using. It is discussed in more detail in [Section 3.3.1](https://r-pkgs.org/structure.html#sec-rbuildignore).
 
     -   `.Rproj.user`, if you have it, is a directory used internally by RStudio.
 
     -   `.gitignore` anticipates Git usage and tells Git to ignore some standard, behind-the-scenes files created by R and RStudio. Even if you do not plan to use Git, this is harmless.
 
-    -   `DESCRIPTION` provides metadata about your package. We edit this shortly and [Chapter 9] covers the general topic of the `DESCRIPTION` file.
+    -   `DESCRIPTION` provides metadata about your package. We edit this shortly and [Chapter 9](https://r-pkgs.org/description.html) covers the general topic of the `DESCRIPTION` file.
 
     -   `NAMESPACE` declares the functions your package exports for external use and the external functions your package imports from other packages. At this point, it is empty, except for a comment declaring that this is a file you should not edit by hand.
 
     -   The `R/` directory is the “business end” of your package. It will soon contain `.R` files with function definitions.
 
-    -   `regexcite.Rproj` is the file that makes this directory an RStudio Project. Even if you don’t use RStudio, this file is harmless. Or you can suppress its creation with `create_package(..., rstudio = FALSE)`. More in [Section 4.2].
+    -   `regexcite.Rproj` is the file that makes this directory an RStudio Project. Even if you don’t use RStudio, this file is harmless. Or you can suppress its creation with `create_package(..., rstudio = FALSE)`. More in [Section 4.2](https://r-pkgs.org/workflow101.html#sec-workflow101-rstudio-projects).
 
 -   **2025-04-30:** finished sections 1.1-1.4. Will start on section 1.5 (`use_git()`) tomorrow.
 
@@ -113,11 +111,6 @@ packageVersion("devtools")
 -   `use_r()`: opens an R script inside `R/` where I can put my function definition. The name of the R script is the argument input to `use_r` and should be the same as the name of the function.
 
 -   `load_all()`: loads all of the functions defined in the package without actually adding them to the global env. Good way of testing the package as it matures.
-
-  [`create_package()`]: https://usethis.r-lib.org/reference/create_package.html
-  [Section 3.3.1]: https://r-pkgs.org/structure.html#sec-rbuildignore
-  [Chapter 9]: https://r-pkgs.org/description.html
-  [Section 4.2]: https://r-pkgs.org/workflow101.html#sec-workflow101-rstudio-projects
 
 ```{r git_function_creation_loading}
 # using git in the repo project/directory
@@ -155,10 +148,8 @@ exists(
 -   `document()`: creates the documentation for package functions.
     -   Documentation for a single function is handled using `roxygen2`. Check the source code file for `strsplit1()` to see the skeleton I had to insert and edit.
     -   This then creates a helper `strsplit1.Rd` file inside the `man` directory.
--   The export directive in `NAMESPACE` is what makes `strsplit1()` available to a user after attaching regexcite via [`library(regexcite)`]. Just as it is entirely possible to author `.Rd` files “by hand”, you can manage `NAMESPACE` explicitly yourself. But we choose to delegate this to devtools (and roxygen2).
+-   The export directive in `NAMESPACE` is what makes `strsplit1()` available to a user after attaching regexcite via [`library(regexcite)`](https://rdrr.io/r/base/library.html). Just as it is entirely possible to author `.Rd` files “by hand”, you can manage `NAMESPACE` explicitly yourself. But we choose to delegate this to devtools (and roxygen2).
     -   This happened because the roxygen2 skeleton we inserted into the source code had the @export tag.
-
-  [`library(regexcite)`]: https://rdrr.io/r/base/library.html
 
 ```{r mit_license_and_document}
 # check()
@@ -272,9 +263,7 @@ install()
 
         -   The very last step is the only mysterious bit to me.
 
-![][1]
-
-  [1]: images/clipboard-4036790326.png
+![](images/clipboard-4036790326.png)
 
 ## Chapter Summary
 
@@ -288,50 +277,35 @@ Here is a review of the key functions you’ve seen in this chapter, organized r
 
 These functions setup parts of the package and are typically called once per package:
 
--   [`create_package()`]
+-   [`create_package()`](https://usethis.r-lib.org/reference/create_package.html)
 
--   [`use_git()`]
+-   [`use_git()`](https://usethis.r-lib.org/reference/use_git.html)
 
--   [`use_mit_license()`]
+-   [`use_mit_license()`](https://usethis.r-lib.org/reference/licenses.html)
 
--   [`use_testthat()`]
+-   [`use_testthat()`](https://usethis.r-lib.org/reference/use_testthat.html)
 
--   [`use_github()`]
+-   [`use_github()`](https://usethis.r-lib.org/reference/use_github.html)
 
--   [`use_readme_rmd()`]
-
-  [`create_package()`]: https://usethis.r-lib.org/reference/create_package.html
-  [`use_git()`]: https://usethis.r-lib.org/reference/use_git.html
-  [`use_mit_license()`]: https://usethis.r-lib.org/reference/licenses.html
-  [`use_testthat()`]: https://usethis.r-lib.org/reference/use_testthat.html
-  [`use_github()`]: https://usethis.r-lib.org/reference/use_github.html
-  [`use_readme_rmd()`]: https://usethis.r-lib.org/reference/use_readme_rmd.html
+-   [`use_readme_rmd()`](https://usethis.r-lib.org/reference/use_readme_rmd.html)
 
 You will call these functions on a regular basis, as you add functions and tests or take on dependencies:
 
--   [`use_r()`]
+-   [`use_r()`](https://usethis.r-lib.org/reference/use_r.html)
 
--   [`use_test()`][`use_r()`]
+-   [`use_test()`](https://usethis.r-lib.org/reference/use_r.html)
 
--   [`use_package()`]
-
-  [`use_r()`]: https://usethis.r-lib.org/reference/use_r.html
-  [`use_package()`]: https://usethis.r-lib.org/reference/use_package.html
+-   [`use_package()`](https://usethis.r-lib.org/reference/use_package.html)
 
 You will call these functions multiple times per day or per hour, during development:
 
--   [`load_all()`]
+-   [`load_all()`](https://devtools.r-lib.org/reference/load_all.html)
 
--   [`document()`]
+-   [`document()`](https://devtools.r-lib.org/reference/document.html)
 
--   [`test()`]
+-   [`test()`](https://devtools.r-lib.org/reference/test.html)
 
--   [`check()`]
-
-  [`load_all()`]: https://devtools.r-lib.org/reference/load_all.html
-  [`document()`]: https://devtools.r-lib.org/reference/document.html
-  [`test()`]: https://devtools.r-lib.org/reference/test.html
-  [`check()`]: https://devtools.r-lib.org/reference/check.html
+-   [`check()`](https://devtools.r-lib.org/reference/check.html)
 
 # Chapter 2: System Setup
 
@@ -530,9 +504,7 @@ usethis::use_build_ignore("notes.qmd")
     -   Offers advanced dependency management capabilities
     -   Is increasingly recommended for package installation tasks
 
-![][2]
-
-  [2]: images/clipboard-3399855533.png
+![](images/clipboard-3399855533.png)
 
 ```{r}
 usethis::use_git_ignore(ignores = "images/")
@@ -1523,3 +1495,29 @@ ignore_unused_imports <- function() {
     -   Documentation and testing are far more important topics that I will be tackling next
 
     -   Claude summaries are very good here, and the bullet points above capture the essence of the chapter
+
+# Chapter 13: Testing Basics
+
+-   I have been waiting for this chapter for quite a bit
+
+    -   This section along with the documentation section are two of the most important pieces I need to enhance my own package development
+
+-   **Why Formal Testing is Worth the Trouble**
+
+    -   **The Problem with Informal Testing:** Current workflow relies on ad hoc console testing, but you forget these tests when returning to code months later, making it easy to break previously working functionality.
+
+-   **Four Key Benefits of Automated Testing**
+
+    -   **Fewer bugs** - Explicit behavior descriptions and adversarial testing mindset catch edge cases and prevent regressions
+
+    -   **Better code structure** - Testing pressure naturally leads to well-factored, modular functions that work in isolation
+
+    -   **Clear call to action** - Converting bugs to failing tests first makes your goal concrete: make the test pass
+
+    -   **Robust code** - Comprehensive test coverage gives confidence to make major changes without accidentally breaking functionality
+
+**The core insight:** you already test your code, but automating those tests pays dividends by systematizing what you're already doing informally.
+
+**2025-10-09:** It has been such a long time
+
+-   I am now back with this, and we are finally on to testing, one of the most important parts of effective package development
