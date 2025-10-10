@@ -1518,6 +1518,18 @@ ignore_unused_imports <- function() {
 
 **The core insight:** you already test your code, but automating those tests pays dividends by systematizing what you're already doing informally.
 
-**2025-10-09:** It has been such a long time
+**2025-10-09:** It has been such a long time, and we stopped at section 13.2
 
 -   I am now back with this, and we are finally on to testing, one of the most important parts of effective package development
+
+**Introduction to testthat for R Package Testing**
+
+-   **Functional design**: testthat is built for R's functional programming style rather than object-oriented testing approaches used in other languages
+
+-   **Edition system**: testthat 3e (third edition) requires explicit opt-in, allowing improvements without breaking the \~5,000 packages that depend on it
+
+-   **Recommendation**: Use testthat 3e for all new packages and actively maintained existing packages
+
+**2025-10-10:** Very short section that took me less than 5 minutes to read
+
+-   Starting slow here to build consistency over the following weeks as this becomes my full-time focs
