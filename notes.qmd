@@ -1532,4 +1532,57 @@ ignore_unused_imports <- function() {
 
 **2025-10-10:** Very short section that took me less than 5 minutes to read
 
--   Starting slow here to build consistency over the following weeks as this becomes my full-time focs
+-   Starting slow here to build consistency over the following weeks as this becomes my full-time focus
+
+**testthat Test Mechanics & Workflow Notes**
+
+**Initial Setup**
+
+-   Run `usethis::use_testthat(3)` once per package
+-   Creates `tests/testthat/` directory and adds `testthat` to DESCRIPTION
+-   Generates `tests/testthat.R` file - **never edit this file**
+-   Safe to run on existing packages to upgrade to testthat 3e
+
+**File Organization**
+
+-   Match test files to R/ files: `R/foofy.R` → `tests/testthat/test-foofy.R`
+-   Test files must be in `tests/testthat/` and start with "test"
+-   Use `usethis::use_r()` and `usethis::use_test()` to create/toggle between files
+
+**Test Structure**
+
+-   Each test file contains one or more `test_that()` tests
+-   Each test has a description and one or more expectations
+-   Basic form: `test_that("description", { expect_equal(actual, expected) })`
+
+**Running Tests - Three Scales**
+
+**Micro-iteration** (individual tests):
+
+-   Use `devtools::load_all()` then run expectations interactively
+-   Perfect for rapid function development and refinement
+
+**Mezzo-iteration (single test file):**
+
+-   `testthat::test_file("tests/testthat/test-foofy.R")`
+-   RStudio: "Run Tests" button or `devtools::test_active_file()` (Ctrl/Cmd + T)
+
+**Macro-iteration (entire test suite):**
+
+-   `devtools::test()` (Ctrl/Cmd + Shift + T) for all tests
+-   `devtools::check()` (Ctrl/Cmd + Shift + E) for full R CMD check
+
+**Key Workflow Tips**
+
+-   File pairs work both ways - `use_test()` from R file, `use_r()` from test file
+    -   This is exceptionally handy because you can call the testing function from the code file to open the associated test file and vice versa, which is a very cool hack
+-   RStudio shortcuts infer target files from active file
+-   Iterate until all tests pass before moving to next development phase
+
+**2025-10-13:** Stopped at 13.4
+
+-   Very informative section that was easy to read and did not take much time to go through
+
+-   Notes above are exceptional and to the point
+
+    -   When this book is done, I will take this file and ask Claude or ChatGPT to re-structure it for more clarity
