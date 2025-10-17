@@ -1586,3 +1586,40 @@ ignore_unused_imports <- function() {
 -   Notes above are exceptional and to the point
 
     -   When this book is done, I will take this file and ask Claude or ChatGPT to re-structure it for more clarity
+
+**Test File Structure**
+
+-   Test files live in `tests/testthat/` and must start with "test"
+    -   bear in mind that creating tests with `use_test()`, it automatically adds the necessary prefix so it's something to note when creating test files by hand
+-   Each file typically contains tests for related functionality (e.g., `test-dup.r` tests `R/dup.r`)
+
+**Test Hierarchy**
+
+-   **Files** contain multiple related tests for specific functions or features
+-   **Tests** group expectations using `test_that(desc, code)` to cover single units of functionality
+-   **Expectations** are the atomic testing units using `expect_*()` functions to verify specific behaviors
+
+**Best Practices**
+
+-   Write descriptive test names that read naturally (e.g., "basic duplication works")
+-   Test typical usage, edge cases, and error conditions
+-   Keep tests focused - prefer multiple small tests over fewer large ones
+-   Organize tests so failures clearly indicate what's wrong and where to look
+
+**Test Types Illustrated**
+
+-   Basic functionality testing (normal usage scenarios)
+-   Edge case testing (boundary conditions like zero duplicates)
+-   Error condition testing (malformed input should produce expected errors)
+
+**2025-10-17:** stopped at section 13.5
+
+-   Cool section but again I am not sure how the test files link to the functions they are testing
+
+    -   Is there some linkage syntax I am not aware of or is this all done by filenames?
+
+        -   If by filenames, what happens when I change them?
+
+        -   If by some linkage syntax, what is it?
+
+    -   Will find the answers later in the book
