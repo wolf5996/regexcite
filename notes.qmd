@@ -1623,3 +1623,39 @@ ignore_unused_imports <- function() {
         -   If by some linkage syntax, what is it?
 
     -   Will find the answers later in the book
+
+Here's a concise summary of expectations in `testthat`:
+
+**Structure & Basics**
+
+-   All expectations start with `expect_` and compare actual results to expected values
+-   They throw errors when actual and expected results don't match
+-   Can be run interactively or inside test files
+
+**Key Expectations**
+
+-   `expect_equal()` - checks equality with numeric tolerance; `expect_identical()` requires exact equivalence
+-   `expect_error()`, `expect_warning()`, `expect_message()` - test for conditions; use `class` argument for precise matching instead of `regexp`
+-   `expect_no_error()` - explicitly checks for absence of errors
+
+**Snapshot Tests**
+
+-   Record expected results in separate human-readable files for comparison
+-   Ideal for testing user interface elements like messages and errors
+-   Use `expect_snapshot()` with options like `error = TRUE`, `transform`, or `variant`
+-   Only function during non-interactive test runs
+-   Review changes with `snapshot_review()` or accept with `snapshot_accept()`
+
+**Common Shortcuts**
+
+-   `expect_match()` - matches character vectors against regular expressions
+-   `expect_length()` - checks object length
+-   `expect_setequal()` - compares sets regardless of order
+-   `expect_s3_class()`, `expect_s4_class()`, `expect_type()` - check object classes and types
+-   `expect_true()` and `expect_false()` - general catchalls
+
+**2025-10-23:** A lot of things I did not get about snapshot tests, but I do get the gist of it
+
+-   Chapter is over now and we start with chapter 14 next time
+
+# Chapter 14: Designing your test suite
