@@ -1659,3 +1659,35 @@ Here's a concise summary of expectations in `testthat`:
 -   Chapter is over now and we start with chapter 14 next time
 
 # Chapter 14: Designing your test suite
+
+**Testing Best Practices**
+
+**What to Test**
+
+-   External interfaces only (not internal implementation)
+-   Each behavior once
+-   Complex/fragile code, not trivial code
+-   Always test bugs when discovered
+-   Consider test-first approach
+    -   You develop the test first and then the code that passed that test, effectively defining your success criteria for the code before running any code
+
+**Test Coverage**
+
+-   Use `covr` package to measure coverage
+-   High coverage good, but 100% often not worth it
+-   Focus on tricky code and bug hotspots
+-   Track with `devtools::test_coverage()` or GitHub Actions
+    -   GitHub Actions will be covered later in chapter 20
+
+**Principles**
+
+-   Tests should be self-sufficient
+-   Optimize for debugging workflow
+-   Obvious code \> clever code
+-   Testing is harder than main code—this is normal
+    -   Most of the field does not discuss testing as much as they discuss the development of the main code
+        -   This does make sense, but it means that testing is an sleeper skill that has significant potential
+
+**2025-10-24:** Stopped at 14.2.1
+
+-   Liking this chapter thus far
