@@ -1686,8 +1686,34 @@ Here's a concise summary of expectations in `testthat`:
 -   Obvious code \> clever code
 -   Testing is harder than main code—this is normal
     -   Most of the field does not discuss testing as much as they discuss the development of the main code
-        -   This does make sense, but it means that testing is an sleeper skill that has significant potential
+        -   This does make sense, but it means that testing is a sleeper skill that has significant potential
 
 **2025-10-24:** Stopped at 14.2.1
 
 -   Liking this chapter thus far
+-   I have also resarted my own package development and am now adding some functions here and there that I think would be of value
+
+**Self-sufficient and Self-contained Tests**
+
+**Core Principle**
+
+-   Test files should be almost entirely `test_that()` calls - avoid top-level code outside tests
+-   Each test should contain everything needed to set up, execute, and tear down
+
+**Managing Side Effects**
+
+-   R objects auto-cleanup after each `test_that()` exits
+-   Landscape changes persist: files, packages, options, environment variables
+-   Use `withr` package to automatically restore state after tests
+-   Key functions: `withr::local_options()`, `withr::local_package()`, `withr::local_envvar()`, `withr::defer()`
+
+**testthat 3e Defaults**
+
+-   `testthat::local_reproducible_output()` runs implicitly in each test
+-   Sets consistent testing environment (no colors, fixed width, etc.)
+
+2025-10-27: Stopped at 14.2.3
+
+-   Good progress and some nice advice here
+
+-   Will have to learn the testing myself though when I get into it for my own packages
