@@ -1712,8 +1712,37 @@ Here's a concise summary of expectations in `testthat`:
 -   `testthat::local_reproducible_output()` runs implicitly in each test
 -   Sets consistent testing environment (no colors, fixed width, etc.)
 
-2025-10-27: Stopped at 14.2.3
+**2025-10-27:** Stopped at 14.2.3
 
 -   Good progress and some nice advice here
 
 -   Will have to learn the testing myself though when I get into it for my own packages
+
+**Testing Best Practices Summary**
+
+**Plan for Test Failure**
+
+-   Tests are revisited when broken, so write them to be easily understood and troubleshot
+-   Make tests self-sufficient: create objects inline and explicitly call dependencies with `::`
+-   Avoid relying on ambient objects or scattered setup code
+
+**Repetition is OK**
+
+-   Tolerate duplication in test code—prioritize obviousness over *don't repeat yourself (DRY) principles*
+-   Repeating simple setup in multiple tests is better than shared file-scope variables
+-   For complex setup, use test fixtures
+
+**Remove Tension Between Interactive and Automated Testing**
+
+-   Use `devtools::load_all()` when working on tests
+-   Avoid `library()` calls in test files—they alter search path and create subtle bugs
+-   Call functions directly (if imported) or use `pkg::fun()` syntax
+    -   I am always a strong proponent of the later
+-   Never use `source()` in tests
+    -   Never used that much in my daily workflows to begin with and not sure what it does, so won't be a problem for me
+
+**2025-10-28:** Stopped at section 14.3—cool section and good advice
+
+-   Very happy with my progress here, and I am loving the idea of getting back into this
+
+-   Already made a post about my latest `EnhancedElbowPlot()` function
