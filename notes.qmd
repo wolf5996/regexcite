@@ -1746,3 +1746,22 @@ Here's a concise summary of expectations in `testthat`:
 -   Very happy with my progress here, and I am loving the idea of getting back into this
 
 -   Already made a post about my latest `EnhancedElbowPlot()` function
+
+**Test File Locations - Summary**
+
+**Where to put test-supporting code:**
+
+-   **`R/` directory**: All functions here (exported or not) are automatically available to tests. Use files like `R/test-helpers.R` or `R/utils-testing.R` for test utilities
+-   **`tests/testthat.R`**: Standard entry point file - never edit it, never add `library()` calls here
+    -   This file is created and executed automatically when checking the entire package and should not be touched by the developer
+    -   This is kind of like the NAMESPACE file, which should only be edited by roxygen2 in most instances and is not for the developer to tamper with
+        -   Only exception of course is if you are removing a function or object from the namespace that you have already deleted from your code because roxygen2 will not do that automatically
+-   **`tests/testthat/helper*.R`**: Files starting with ***"helper"*** execute before all tests. Perfect for custom test functions and setup code with side effects
+    -   This is my preferred location for helper functions associated with testing. Putting them under `R/` seems like a very poor idea, and this location is definitely more natural—this very sentiment is echoed by the book
+-   **Key distinction**: Helpers in `R/` work like regular package code; helpers in `tests/testthat/helper.R` can use testthat functions and make the testing purpose more explicit
+
+**Rule of thumb**: Use `tests/testthat/helper.R` for test-specific utilities that use testthat functions; use `R/` for general utilities that happen to be useful in tests
+
+**2025-10-29:** Stopped at section 14.3.4
+
+-   Claude summaries are on point here as always
