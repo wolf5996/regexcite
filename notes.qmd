@@ -1758,6 +1758,8 @@ Here's a concise summary of expectations in `testthat`:
         -   Only exception of course is if you are removing a function or object from the namespace that you have already deleted from your code because roxygen2 will not do that automatically
 -   **`tests/testthat/helper*.R`**: Files starting with ***"helper"*** execute before all tests. Perfect for custom test functions and setup code with side effects
     -   This is my preferred location for helper functions associated with testing. Putting them under `R/` seems like a very poor idea, and this location is definitely more natural—this very sentiment is echoed by the book
+        -   However, it is also important to note that one of the top recommendations in this chapter is to make sure the tests are very clear and self-contained, which results in significant verbosity
+            -   In testing philosophy, verbosity and the subsequent clarity is more important than elegance, and that's why adding important variables and inputs for testing in the helper tests might not be the best idea even if elegant
 -   **Key distinction**: Helpers in `R/` work like regular package code; helpers in `tests/testthat/helper.R` can use testthat functions and make the testing purpose more explicit
 
 **Rule of thumb**: Use `tests/testthat/helper.R` for test-specific utilities that use testthat functions; use `R/` for general utilities that happen to be useful in tests
@@ -1765,3 +1767,39 @@ Here's a concise summary of expectations in `testthat`:
 **2025-10-29:** Stopped at section 14.3.4
 
 -   Claude summaries are on point here as always
+
+**Testthat Setup Files and Test Organization**
+
+**Setup Files**
+
+-   Setup files are any file below `test/testthat/` that begins with ***"setup"***
+-   Handled almost exactly like helper files but with two key differences: not executed by `devtools::load_all()` and often contain corresponding teardown code
+-   Good for global test setup tailored for non-interactive or remote environments (e.g., turning off messaging or clipboard writing)
+-   Should include teardown code using `withr::defer()` with `teardown_env()` to reverse setup after test execution
+-   Keep teardown code alongside setup code in `setup.R` to ensure they stay in sync
+
+**Files Ignored by Testthat**
+
+-   Testthat only automatically executes files that are direct children of `tests/testthat/` AND start with ***"helper", "setup",*** **or *"test"***
+    -   This is a very important point because it means that these suffixes are how the package realizes what files to run at what point and after which function/command
+-   Other files or directories in `tests/testthat/` are fine but won't be automatically executed (except `_snaps` directory for snapshots)
+
+**Storing Test Data**
+
+-   Best location is below `tests/testthat/`, often in a subdirectory like `fixtures/`
+-   Use `testthat::test_path()` to build robust filepaths to test data files
+-   `test_path()` works correctly in both interactive development (working directory at package top-level) and automated testing (working directory below `tests/`)
+    -   Package data, on the other hand, that is used for the testing of main code under `R/` is saved under `data/` as `.rda` files
+    -   the scripts needed to create said `rda` objects under `data/` are stored under `data-raw/`
+
+**Writing Files During Testing**
+
+-   Only write files inside the session temp directory (never in `tests/`, current working directory, or user's home directory)
+-   Always clean up files after yourself, even in temp directory
+-   Use `withr::local_tempfile()` to create self-deleting temporary files with lifetime tied to test execution environment
+-   Use `withr::local_tempdir()` when you need more control over file names, creating a self-deleting temporary directory for intentionally-named files
+-   High file system discipline eliminates testing bugs and smooths CRAN submissions
+
+**2025-11-03:** End of chapter 14
+
+-   Today's notes were a bit more advanced but they advocate the right etiquette for developing testing suites
