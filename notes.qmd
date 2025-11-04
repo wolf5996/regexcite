@@ -1803,3 +1803,33 @@ Here's a concise summary of expectations in `testthat`:
 **2025-11-03:** End of chapter 14
 
 -   Today's notes were a bit more advanced but they advocate the right etiquette for developing testing suites
+    -   The logic here is that testing datasets that should be under the testing directory and any files or folders you create as part of the test should be temporary, should not alter the package structure, and should be removed as soon as is the test is complete
+    -   Makes sense and the book advocates very heavy usage of `withr` package for a lot of this advanced functionality when needed
+        -   Seems like `withr` is more a developer's than a user's package
+
+# Chapter 15: Advanced Testing Techniques
+
+**Test Fixtures**
+
+**Core concept:** Structured, explicit setup of test prerequisites when self-sufficient tests aren't practical.
+
+**Three Strategies by Cost/Complexity**
+
+-   **Helper functions** - Fiddly but fast object creation
+-   **Local functions** - Setup with side effects requiring cleanup (use `withr::defer()`)
+-   **Static files** - Expensive/stable objects saved as `.rds` in `fixtures/`
+
+**Key Principles**
+
+-   Always save the code that creates static fixtures
+    -   This is the same logic as saving the code that creates the package data under `data/` in `data-raw/`
+    -   In this case, the script is right next to the objects that it creates, and the goal here is to keep a record of how these testing objects were created and allow for future iteration to improve the code generating said objects or the objects themselves
+-   Helpers belong in `R/` or `tests/testthat/helper.R`
+-   Consider memoisation for costly constructors
+-   Test helpers often become useful utilities worth exporting
+
+**2025-11-04:** Stopped at 15.2
+
+-   Advanced chapter so does not have much utility for a beginner
+
+    -   Many concepts are still relevant and useful though, so will go through it regardless
