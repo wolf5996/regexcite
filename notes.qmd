@@ -1833,3 +1833,27 @@ Here's a concise summary of expectations in `testthat`:
 -   Advanced chapter so does not have much utility for a beginner
 
     -   Many concepts are still relevant and useful though, so will go through it regardless
+
+**Building Your Own Testing Tools**
+
+**Helper Functions**
+
+-   Create hyper-local helpers inside individual tests for simple repetition reduction
+-   Define custom expectations for repeated checking patterns across multiple tests
+-   Keep helpers extremely short and simple to avoid introducing bugs
+
+**When to Create Helpers**
+
+-   If testing requires complicated helpers, consider refactoring the function being tested instead
+-   Balance reducing repetition against maintaining obvious, readable tests
+
+**Testing Environment**
+
+-   testthat provides `is_testing()` and `testing_package()` for detecting test context
+-   Can inline these functions to avoid run-time dependency on `testthat`
+
+**2025-11-05:** Stopped at 15.3
+
+-   Too technical and too advanced, so I spend less than 5 minutes on this section
+
+-   Definitely not a fan of this at all, but going through it as quickly as I can just to be aware of it
