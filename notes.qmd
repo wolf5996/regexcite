@@ -1857,3 +1857,29 @@ Here's a concise summary of expectations in `testthat`:
 -   Too technical and too advanced, so I spend less than 5 minutes on this section
 
 -   Definitely not a fan of this at all, but going through it as quickly as I can just to be aware of it
+
+**When Testing Gets Hard - Summary**
+
+**Skipping Tests**
+
+-   Use `testthat::skip()` when tests can't run (no internet, missing credentials, wrong platform)
+-   Create custom skippers like `skip_if_no_api()` and call within each test, not at file top-level
+-   Built-in skippers: `skip_if()`, `skip_if_not_installed()`, `skip_if_offline()`, `skip_on_cran()`, `skip_on_os()`
+-   Danger: skips are invisible in CI - regularly verify skip counts to avoid false confidence
+
+**Mocking**
+
+-   Replace unreliable external dependencies with controlled alternatives
+-   Avoid unless necessary - adds complexity
+-   Key packages: mockery, mockr, httptest, httptest2, webfakes
+-   testthat adding `with_mocked_bindings()` and `local_mocked_bindings()`
+
+**Secrets**
+
+-   Design packages to test without live authentication when possible
+-   Use secure environment variables for authenticated testing
+-   See `httr2`'s "Wrapping APIs" vignette for details
+
+**2025-11-10:** Stopped at section 15.4
+
+-   Finishing up chapter soon but advice is far too advanced for a beginner or intermediate in the domain of package development
