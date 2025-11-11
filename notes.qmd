@@ -1883,3 +1883,33 @@ Here's a concise summary of expectations in `testthat`:
 **2025-11-10:** Stopped at section 15.4
 
 -   Finishing up chapter soon but advice is far too advanced for a beginner or intermediate in the domain of package development
+
+**CRAN Testing Considerations**
+
+-   CRAN runs `R CMD check` regularly on all packages - test suites must comply with Repository Policy
+-   Use `skip_on_cran()` at start of tests that shouldn't run on CRAN (checks `NOT_CRAN` environment variable)
+-   Tests with `skip_on_cran()` still run in development and CI environments like GitHub Actions
+
+**When to Use `skip_on_cran()`**
+
+-   Long-running tests (total suite should be under 1 minute)
+-   Tests with variable timing, parallel code, or strict numerical precision requirements
+-   Flaky tests that occasionally fail (web APIs, network resources)
+-   Tests that access external resources (CRAN policy requires graceful failures for internet resources)
+-   Snapshot tests (skip by default on CRAN)
+
+**CRAN Requirements**
+
+-   Only write to session temp directory (`tempdir()`), never user's home directory or clipboard
+-   Clean up all created files and processes
+-   Close any external software launched during tests
+-   Use `expect_equal()` not `expect_identical()` for cross-platform compatibility
+-   Zero tolerance for flaky tests - they block dependency updates
+    -   Meaning if I use a flaky test and my package is failing, another package that uses my package as a dependency will fail to be published because of my flaky test
+        -   There is a knock-on effect if my tests start failing
+
+**Alternative Strategies**
+
+-   Use CI/CD for functionality impossible to test on CRAN
+-   Maintain integration tests outside package if needed
+    -   This is what the `tidymodels` team is doing for some reason
