@@ -1913,3 +1913,41 @@ Here's a concise summary of expectations in `testthat`:
 -   Use CI/CD for functionality impossible to test on CRAN
 -   Maintain integration tests outside package if needed
     -   This is what the `tidymodels` team is doing for some reason
+
+# Chapter 16: Function Documentation
+
+**Function Documentation with roxygen2**
+
+Write roxygen comments above functions (lines starting with `#'`), then use **Ctrl/Cmd + Shift + D** to generate `.Rd` files.
+
+**Basic roxygen Structure**
+
+``` r
+#' Brief title
+#' 
+#' @param x Description
+#' @param y Description
+#' @returns What function returns
+#' @examples
+#' function_name(1, 2)
+function_name <- function(x, y) {
+  # implementation
+}
+```
+
+**Quick Tips**
+
+-   **`Ctrl/Cmd + Shift + D`**: Generate/update documentation
+    -   Can confirm that it works and is an exceptional shortcut
+    -   You will see it in action under the `Build` tab on the right
+-   Position cursor in function, use `Code > Insert Roxygen Skeleton` for template
+    -   Can also confirm that this helps massively and LLMs can already generate this documentation readily
+-   Preview with `?function` after running `devtools::load_all()`
+-   Document all exported functions (R CMD check requirement)
+-   Use `@noRd` tag for internal functions to skip `.Rd` generation
+    -   Or do not add the export tag, but add the documentation still
+        -   That way, your function is not exported to the user, but you still have access to it and have documented it
+
+**2025-11-14:** Stopped at section 16.1.2
+
+-   Excellent chapter, and I expect it to be immensely useful
