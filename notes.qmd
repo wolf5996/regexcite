@@ -1951,3 +1951,30 @@ function_name <- function(x, y) {
 **2025-11-14:** Stopped at section 16.1.2
 
 -   Excellent chapter, and I expect it to be immensely useful
+
+**Roxygen2 Comments, Blocks, and Tags**
+
+-   Comments start with `#'`, all preceding a function form a **block**
+-   Blocks contain **tags** (`@tagName tagValue`) that extend until the next tag
+-   Text before first tag is the **introduction** (title + description)
+-   Each block generates one `.Rd` file in `man/` directory
+-   Maintain consistent line length; indent continuation lines for readability
+-   Use `Ctrl/Cmd+Shift+/` in RStudio to reflow comments automatically
+-   Tag order in source doesn't affect rendered documentation order
+
+**Key Markdown Features**
+
+-   **Backticks** for inline code: `` `function_name()` ``
+-   **Square brackets** for auto-linked functions: `[pkg::func()]` or `[func()]`
+    -   Trailing parentheses required for proper formatting
+    -   No need for additional backticks
+-   **Vignette references**: `vignette("topic", package = "pkg")` auto-links in pkgdown sites
+-   **Bullet lists** using `*` to improve scanability
+    -   Blank line before list is optional
+    -   Works in function descriptions, argument docs, and return values
+
+**2025-11-17:** Stopped at section 16.2
+
+-   Small amount today as I have a headache and am bored mostly
+
+-   Good chapter though and many important points on documentation, most of which I am already aware of
