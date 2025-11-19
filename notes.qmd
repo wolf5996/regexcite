@@ -1978,3 +1978,45 @@ function_name <- function(x, y) {
 -   Small amount today as I have a headache and am bored mostly
 
 -   Good chapter though and many important points on documentation, most of which I am already aware of
+
+**Function Documentation Structure (Title, Description, Details)**
+
+**Title (First Sentence)**
+
+-   Write in sentence case, no ending period
+-   Followed by blank line
+-   Shows in function indexes
+-   Focus on unique aspects, avoid repetition
+-   Use descriptive verbs that differ from function name when possible
+-   Example:
+    -   `mutate()`: Create, modify, and delete columns
+        -   This line is literally the title of the `mutate()` function in dplyr verbs
+
+**Description (Next Paragraph)**
+
+-   Summarize function goal, usually one paragraph
+-   Try to reword title slightly to give users another perspective
+-   For multiple paragraphs, use explicit `@description` tag
+-   Can include bullet lists if using `@description` tag
+-   Must use `@description` if including any blank lines
+-   In summary, always use `@description` as a matter of habit
+
+**Details (Everything After Description)**
+
+-   Optional, can be any length
+-   Most functions don't need details
+-   Use markdown headings (`@section Title:`) to organize longer content
+-   Appears after usage and arguments in rendered docs, despite placement in roxygen
+-   Good for deep dives into important function aspects
+
+**Key Points**
+
+-   Title and description appear together at top of docs
+-   Details appear much later (after usage, arguments, return value)
+-   Even adjacent in roxygen block, they're separated in output
+-   Do write descriptions when function purpose seems "obvious" to you—it won't be to users
+    -   Write descriptions after you have gone away from the function for a bit and can come back and write a meaningful description of what this function does when you are not hyper-aware of it because you just coded it
+
+**2025-11-19:** Stopped at section 16.3
+
+-   Moving quick and liking this chapter very much
