@@ -2020,3 +2020,43 @@ function_name <- function(x, y) {
 **2025-11-19:** Stopped at section 16.3
 
 -   Moving quick and liking this chapter very much
+
+**Arguments**
+
+-   Document function parameters using `@param` followed by argument name and description.
+
+-   **Priority: Provide succinct summary of allowed inputs and parameter action**
+
+**Key practices:**
+
+-   Describe what the parameter does and what inputs are allowed
+
+-   Document default values in the description (even though shown in usage) since usage and description are often far apart in rendered docs
+
+-   Accept the duplication trade-off—easier for users, minimal extra maintenance
+
+-   List fixed/enumerated options clearly
+
+**Format options for fixed parameters:**
+
+-   Simple options: inline sentence format (`"left"`, `"right"`, or `"both"` (the default))
+
+<!-- -->
+
+-   Complex options: bulleted list with explanations for each option
+
+**Length guidance:**
+
+-   Most arguments: 1-2 sentences
+
+-   Use as much space as needed for clarity
+
+-   Multi-paragraph descriptions acceptable when necessary
+
+**2025-11-21:** Stopped at 16.3.1
+
+-   Very small progress today because I am exhausted from playing Elden Ring for 7 hours last night
+
+    -   Love the game, but it is very time-consuming and addictive
+
+    -   Not necessarily a bad thing, but it does mean I can't really perform optimally at the moment
