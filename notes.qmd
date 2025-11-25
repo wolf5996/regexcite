@@ -2060,3 +2060,25 @@ function_name <- function(x, y) {
     -   Love the game, but it is very time-consuming and addictive
 
     -   Not necessarily a bad thing, but it does mean I can't really perform optimally at the moment
+
+**Multiple Arguments & @inheritParams**
+
+**Multiple arguments together:**
+
+-   Use `@param x,y` (comma-separated, no spaces) when arguments are tightly coupled
+    -   Completely useless and not worth mentioning at all
+
+@inheritParams**:**
+
+-   Inherits argument docs from another function: `@inheritParams source_function`
+    -   Extremely useful because many of the visualisation functions in my package share the same arguments and have the same documentation
+    -   Could ask Claude or chatGPT to re-factor my code base for scRNA-Seq visualisation functions to document arguments in one place and then use @inheritParams to copy that documentation to every other function
+-   Only inherits args the function actually uses and aren't already documented locally
+-   Mix inheritance with local overrides—document specialized args yourself, inherit the rest
+-   Cross-package: `@inheritParams pkg::fun` works but creates version dependency (watch for spurious diffs)
+    -   Not a big fan of this because documentation is not self-contained in this case and could change significantly depending on the package that the documentation is depending on
+    -   That's why it's a good idea to keep my own documentation self-contained and only inherit parameters from functions in my own code base, whose documentation is completely under my control
+
+**2025-11-25:** Stopped at section 16.4
+
+-   Excellent section on @inheritParams that is immensely useful
