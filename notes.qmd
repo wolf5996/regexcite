@@ -2082,3 +2082,25 @@ function_name <- function(x, y) {
 **2025-11-25:** Stopped at section 16.4
 
 -   Excellent section on @inheritParams that is immensely useful
+
+**Return Value Documentation (@returns)**
+
+Document the output "`shape`": type, dimensions, and structure.
+
+**Core elements:**
+
+-   Object type (vector, matrix, data frame, list)
+-   Dimensions/length relative to inputs
+-   For matrices: what determines rows/columns
+-   For data frames: effects on rows, columns, groups, attributes
+
+**Additional info:**
+
+-   Important warnings or errors users might encounter
+-   CRAN requires @returns for all exported functions
+
+**Example:** `@returns A logical vector the same length as string.`
+
+**2025-11-26:** Stopped at section 16.5
+
+-   Very short section
