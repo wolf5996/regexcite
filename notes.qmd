@@ -2104,3 +2104,44 @@ Document the output "`shape`": type, dimensions, and structure.
 **2025-11-26:** Stopped at section 16.5
 
 -   Very short section
+
+**Examples (@examples)**
+
+**Core Tension**
+
+-   Balance readable/realistic examples for users vs. error-free execution in automated contexts (CRAN, GitHub Actions)
+-   Executed in 4 contexts: interactive example(), local/CRAN R CMD check, pkgdown builds
+
+**Content Guidelines**
+
+-   Show basic operation first, then key features
+    -   The example below is a very excellent demonstration of this that starts off by showing basic functionality followed by more in-depth arguments and options that are worth noting
+    -   If more needs to be said in these examples to document important behaviors, vignettes are always an option
+-   Stay focused, avoid edge cases (those belong in tests)
+-   Use familiar datasets (mtcars) when possible
+    -   Can't stress this enough because it really helps users observe how new functionality interacts with datasets they already understand and have experience with
+-   Use sectioning comments with dashes (---) for visual breaks
+-   Create helper functions/datasets if setup is complex
+    -   Creating a package dataset is my go-to solution but documenting my package datasets is what I have not gotten to yet
+        -   Could be better to use `SeuratData` datasets instead of my own, but I would have to include the dataset pre-processing in the examples (not the best option for clear examples)
+
+Example from `str_detect()`:
+
+``` r
+#' @examples
+#' fruit <- c("apple", "banana", "pear", "pineapple")
+#' str_detect(fruit, "a")        # basic usage
+#' str_detect(fruit, "^a")       # simple variations
+#' str_detect(fruit, "a$")
+#' 
+#' # Also vectorised over pattern  ← highlights key feature
+#' str_detect("aecfg", letters)
+```
+
+**Key Principle**
+
+-   Examples are documentation for humans, not tests
+
+**2025-11-28:** Stopped at section 16.5.2
+
+-   Small amount of progress but consistency is king always
