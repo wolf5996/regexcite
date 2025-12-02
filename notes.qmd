@@ -2129,19 +2129,44 @@ Example from `str_detect()`:
 
 ``` r
 #' @examples
+#' # ------ basic functionality ------
 #' fruit <- c("apple", "banana", "pear", "pineapple")
 #' str_detect(fruit, "a")        # basic usage
 #' str_detect(fruit, "^a")       # simple variations
 #' str_detect(fruit, "a$")
 #' 
+#' # ------ advanced functionality ------
 #' # Also vectorised over pattern  ← highlights key feature
 #' str_detect("aecfg", letters)
 ```
 
 **Key Principle**
 
--   Examples are documentation for humans, not tests
+-   Examples are documentation for humans, not tests, so the focus should be on clarity and usability
+    -   This is the first thing people are going to look at when trying to use your function with their data, so make sure you are helping them implement as much as possible
 
 **2025-11-28:** Stopped at section 16.5.2
 
 -   Small amount of progress but consistency is king always
+
+**Leave the World as You Found It & Handling Errors**
+
+**Self-Contained Examples**
+
+-   Reset options, delete temporary files, don't change working directory
+-   Can't use `withr` or `on.exit()` - must clean up manually
+-   Must run quickly (CRAN: under 10 minutes total)
+-   Avoid network calls or flaky code that can fail unpredictably
+
+**Handling Errors**
+
+-   `try()`: Wraps code to show error without stopping execution (recommended for teaching)
+-   `\dontrun{}`: Prevents code execution entirely (common for platform-specific or conditional code)
+    -   This is the most important option here, and it's used heavily by my own package as well as Seurat and some other major packages
+        -   Very good way of showing the code even though it does not show the output\\
+            -   However, if output must be shown, I think a vignette is a more suitable location for that
+-   **CRAN restriction:** Initial submissions need at least one runnable example per function (can't wrap everything in `\dontrun{}`)
+
+**2025-12-02:** Stopped at section 16.5.4
+
+-   Consistency is king
