@@ -2170,3 +2170,31 @@ Example from `str_detect()`:
 **2025-12-02:** Stopped at section 16.5.4
 
 -   Consistency is king
+
+**Dependencies and Conditional Execution**
+
+**Package dependencies:**
+
+-   Examples can only use packages listed in `Imports` or `Suggests`
+-   Must explicitly attach with `library()` or use `package::function()` syntax
+-   Example code runs in user's environment, not package environment
+
+**Conditional execution - old approach (NOT recommended):**
+
+-   Previously suggested wrapping in `if (requireNamespace("pkg", quietly = TRUE))` blocks
+-   No longer recommended because: (1) suggested packages should be installed during R CMD check, (2) hiding code in `{ }` blocks prevents seeing intermediate results in rendered docs
+
+**Conditional execution - modern approach:**
+
+-   Use `@examplesIf some_condition()` instead of `@examples` with if-blocks
+-   Condition can be `interactive()` or custom predicate function from your package
+-   Advantages: cleaner docs, full rendering in pkgdown, runs when appropriate, avoids CRAN's `\dontrun{}` prohibition
+
+**Alternative documentation approaches:**
+
+-   ```` ```R ```` blocks show code without running (risk of syntax errors/outdated code)
+-   ```` ```{r} ```` blocks run code and include output (but runs every time you document, slowing workflow)
+
+**2025-12-03:** Stopped at section 16.6
+
+-   Short and sweet
