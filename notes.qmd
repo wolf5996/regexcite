@@ -2040,9 +2040,6 @@ function_name <- function(x, y) {
 **Format options for fixed parameters:**
 
 -   Simple options: inline sentence format (`"left"`, `"right"`, or `"both"` (the default))
-
-<!-- -->
-
 -   Complex options: bulleted list with explanations for each option
 
 **Length guidance:**
@@ -2198,3 +2195,38 @@ Example from `str_detect()`:
 **2025-12-03:** Stopped at section 16.6
 
 -   Short and sweet
+
+**Re-using Documentation & Package Help Topics**
+
+**Multiple Functions in One Topic**
+
+-   Use `@rdname topic_name` to merge closely related functions into single page
+-   First function has full docs; others reference with `@rdname`
+-   Best for functions with similar arguments, returns, and examples
+
+**Inheriting Documentation**
+
+-   `@inheritParams source_function`: inherit parameter documentation
+    -   Very effective method, especially when more than one function uses the same parameters as with visualisation functions
+-   `@inherit source_function`: inherit all supported components
+-   `@inheritSection source_function Section title`: inherit specific section
+-   `@inheritDotParams`: auto-generate `...` parameter docs when passing to another function
+    -   This is immensely useful and will help me add documentation for my `BadranSeq::DimPlot()` functions based on `SCPubr::DimPlot()` further options for controlling titles, sizes, etc.
+
+**Child Documents**
+
+-   Reuse `.Rmd`/`.md` files across docs, README, and vignettes
+-   Syntax: ```` #' ```{r child = "man/rmd/filename.Rmd"} ````
+-   Place reusable content in `man/rmd/` directory
+
+**Package-Level Help Topic**
+
+-   Call `usethis::use_package_doc()` to create `R/{pkgname}-package.R`
+-   Document `"_PACKAGE"` sentinel for package help (accessible via `?pkgname`)
+-   Natural location for `@importFrom` directives via `usethis::use_import_from()`
+
+**2025-12-04:** End of chapter 16
+
+-   Some advice is relevant but a lot is not
+
+    -   Simple enough
