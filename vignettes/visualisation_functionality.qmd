@@ -1,0 +1,16 @@
+---
+title: "visualisation_functionality"
+vignette: >
+  %\VignetteIndexEntry{visualisation_functionality}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+```{r}
+#| label: setup
+library(regexcite)
+```

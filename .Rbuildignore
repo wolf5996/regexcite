@@ -4,3 +4,5 @@
 ^README\.Rmd$
 ^notes\.qmd$
 ^images$
+^vignettes/\.quarto$
+^vignettes/*_files$

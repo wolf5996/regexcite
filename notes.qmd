@@ -2233,7 +2233,7 @@ Example from `str_detect()`:
 
 # Chapter 17: Vignettes
 
-# Vignettes Overview
+**Vignettes Overview**
 
 **Purpose & Function**
 
@@ -2286,3 +2286,33 @@ Example from `str_detect()`:
     -   This chapter integrates heavily with Chapter 19 on building a site for my package using `pkgdown`
 
     -   That is the point at which I will create my own scRNA-Seq visualisation package with its attached documentation, vignettes, and sites
+
+**Vignette Metadata**
+
+**Creation**
+
+-   Use `usethis::use_vignette("name")` to generate vignette template with correct metadata
+
+**YAML Frontmatter**
+
+-   `title`: Display title (must manually match VignetteIndexEntry)
+-   `output: rmarkdown::html_vignette`: Optimized output format
+-   `vignette` block: Three LaTeX-style entries
+    -   `%\VignetteIndexEntry{Title}`: Index name (match title exactly)
+    -   `%\VignetteEngine{knitr::rmarkdown}`: Don't change
+    -   `%\VignetteEncoding{UTF-8}`: Don't change
+
+**Standard Setup**
+
+-   First chunk: knitr display options
+-   Second chunk: `library(yourpackage)` (never use `load_all()` in vignette source)
+-   Of course, this is all going to be different if we are dealing with quarto documents instead of rmd ones, but I will gain a more practical understanding of these mechanics later when I am implementing this in my own package
+
+**Avoid**
+
+-   `author` field (unless different from package authors)
+-   `date` field (maintenance burden, unclear meaning)
+
+**2025-12-12:** Stopped at section 17.3
+
+-   Short and sweet
