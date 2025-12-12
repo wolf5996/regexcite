@@ -2230,3 +2230,59 @@ Example from `str_detect()`:
 -   Some advice is relevant but a lot is not
 
     -   Simple enough
+
+# Chapter 17: Vignettes
+
+# Vignettes Overview
+
+**Purpose & Function**
+
+-   Vignettes are long-form package guides focused on solving target problems
+-   Show workflow from start to finish, demonstrating how multiple functions work together
+-   Better than function docs for discovering package capabilities without knowing specific function names
+-   Provide more control over code-prose integration than help topics
+
+**Discovery & Access**
+
+-   View all installed vignettes: `browseVignettes()`
+-   View package-specific: `browseVignettes("tidyr")`
+-   Read specific vignette: `vignette("rectangle", package = "tidyr")`
+-   Prefer pkgdown websites over CRAN for better navigation (uses "article" terminology for user-facing docs)
+-   Technical distinction: vignettes ship with package, articles exist only on website
+
+**Initial Setup**
+
+-   Create first vignette: `usethis::use_vignette("my-vignette")`
+-   Creates `vignettes/` directory
+-   Adds `knitr` to `VignetteBuilder` field in `DESCRIPTION`
+-   Adds `knitr` and `rmarkdown` to `Suggests`
+-   Drafts `vignettes/my-vignette.Rmd`
+-   Configures `.gitignore` for preview artifacts
+
+**Development Workflow**
+
+-   Add content to vignette using standard R Markdown
+-   Use `devtools::load_all()` for interactive development
+-   **Critical issue:** vignettes render against installed package version by default (via `library(yourpackage)`)
+-   Must ensure you're building against current source, not stale installed version
+
+**Rendering Options**
+
+-   Install then render: `devtools::install()` or Ctrl/Cmd+Shift+B, then Ctrl/Cmd+Shift+K
+-   Install with vignettes: `install(build_vignettes = TRUE)` then `browseVignettes()`
+-   Build against dev version: `devtools::build_rmd("vignettes/my-vignette.Rmd")`
+
+**Best Practices**
+
+-   Treat `inst/doc/` as auto-generated (like `man/` and NAMESPACE) - don't edit manually
+-   Avoid complicated base R vignette maneuvers
+-   Regular `devtools::check()` keeps vignettes in working order
+-   Check catches undeclared package dependencies in vignettes
+
+**2025-12-11:** Stopped at 17.2
+
+-   Brief but very useful
+
+    -   This chapter integrates heavily with Chapter 19 on building a site for my package using `pkgdown`
+
+    -   That is the point at which I will create my own scRNA-Seq visualisation package with its attached documentation, vignettes, and sites
