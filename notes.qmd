@@ -2316,3 +2316,36 @@ Example from `str_detect()`:
 **2025-12-12:** Stopped at section 17.3
 
 -   Short and sweet
+
+**Vignette Writing Advice**
+
+**Core Principles**
+
+-   Writing reveals code problems and usability issues before release
+-   Adopt beginner's mind - teaching exposes what you've internalized
+-   Kathy Sierra's work (Creating Passionate Users, Serious Pony) recommended for timeless teaching/tool-building advice
+
+**Technical Details**
+
+-   Watch file size with graphics - may trigger CRAN NOTEs
+-   No official cross-linking between vignettes/help - use pkgdown for automatic hyperlinks
+-   Backtick syntax: `` `function()` `` for functions, `` `vignette("topic")` `` for vignettes
+
+**File References**
+
+-   Generated figures: auto-embedded as data URIs
+-   User-facing files: `inst/extdata/` with `system.file()`
+-   Vignette-only files: `vignettes/` with relative paths
+-   Graphics: `vignettes/` with `knitr::include_graphics()`
+
+**Structure**
+
+-   Simple packages: single `packagename.Rmd` vignette (gets pkgdown "Get started" link)
+-   Complex packages: multiple self-contained vignettes as cohesive chapters
+
+**Publication**
+
+-   JSS/R Journal for detailed algorithms
+-   JOSS for fast, lightweight citation papers
+
+**2026-01-13:** Took a long break due to everything happening in life (grade upgrade at work and termination of my engagement), and now I am back and stopped at section 17.4
