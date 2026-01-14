@@ -2349,3 +2349,44 @@ Example from `str_detect()`:
 -   JOSS for fast, lightweight citation papers
 
 **2026-01-13:** Took a long break due to everything happening in life (grade upgrade at work and termination of my engagement), and now I am back and stopped at section 17.4
+
+-   **Vignette code must be written differently** from analysis scripts (more like **examples/tests**): reproducible, robust, and CRAN-safe.
+
+-   **All packages used in vignettes must be formal dependencies** in `DESCRIPTION` (**Imports** or **Suggests**).
+
+    -   Policy: assume **Suggests packages are installed** when vignettes are built (except rare hard-to-install cases).
+
+-   Vignette code may fail on CRAN/CI due to **credentials**, **slow runtime**, **API instability**, etc. → you must guard it.
+
+-   Main control is knitr chunk option **`eval`**:
+
+    -   `eval = TRUE/FALSE`
+
+    -   Can be **conditional expressions** like:
+
+        -   `eval = requireNamespace("pkg")`
+        -   `eval = Sys.getenv("TOKEN") != ""`
+        -   `eval = file.exists("credentials")`
+
+-   Often you either run **almost everything** or **almost nothing**:
+
+    -   Use early hidden setup chunk: `knitr::opts_chunk$set(eval = FALSE)` (or `eval = can_run`)
+    -   Override individual chunks with `eval = TRUE` if needed.
+
+-   Good practice: if code can’t run, print an **explanatory message** in a chunk with `eval = !can_run`.
+
+-   Helpful chunk options:
+
+    -   `include = FALSE` (run but don’t show)
+    -   `echo = FALSE` (hide code)
+    -   `error = TRUE` (allow errors without failing the whole vignette/check).
+
+-   If you don’t want anything executed on CRAN: write a **pkgdown article** (website-only), not a vignette.
+
+-   Workflow detail: `.Rmd` source lives in `vignettes/` and gets rendered at **`R CMD build`** into `inst/doc/`.
+
+-   **`R CMD check` treats vignettes like tests**: it tangles and runs code, then rebuilds the vignette → code may execute **up to 2 times**, so failing chunks must be suppressed via `eval`.
+
+**2026-01-14:** Chapter 17 is complete
+
+-   Lots of waffling in these guides so I am starting to get into the habit of ignoring lines that makes no sense or ramble on when I read (a skill I am now developing with my style of reading papers)
