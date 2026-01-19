@@ -2390,3 +2390,45 @@ Example from `str_detect()`:
 **2026-01-14:** Chapter 17 is complete
 
 -   Lots of waffling in these guides so I am starting to get into the habit of ignoring lines that makes no sense or ramble on when I read (a skill I am now developing with my style of reading papers)
+
+# Chapter 18: Other Markdown Files
+
+**Package-Level Documentation Files**
+
+Two critical files for package communication:
+
+**README.md**
+
+**Purpose**: Answer three key questions for potential users
+
+-   Why should I use this package?
+-   How do I use it?
+-   How do I get it?
+
+**Recommended structure**:
+
+-   High-level purpose paragraph describing what problem the package solves
+-   Simple example showing basic usage
+-   Installation instructions (copy-pasteable R code)
+-   Secondary items:
+    -   Overview of main components (link to vignettes for complex packages)
+    -   Description of how package fits into the broader domain ecosystem
+-   **Context**: Featured on CRAN landing page, pkgdown site, and crucial for GitHub discoverability
+
+**NEWS.md**
+
+**Purpose**: Document package evolution over time
+
+-   Version releases
+-   Major updates and changes
+-   Breaking changes and deprecations
+
+**General Notes**
+
+-   Both files strongly recommended even for limited-audience packages
+
+-   Use Markdown format for consistency with vignettes and help topics
+
+**2026-01-19:** Stopped at section 18.1.1
+
+-   Cool and short chapter about `README.md` and `NEWS.md`, both of which are immensely useful in general
