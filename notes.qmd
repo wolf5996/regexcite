@@ -2432,3 +2432,45 @@ Two critical files for package communication:
 **2026-01-19:** Stopped at section 18.1.1
 
 -   Cool and short chapter about `README.md` and `NEWS.md`, both of which are immensely useful in general
+
+**README.Rmd and README.md**
+
+**Why README.Rmd over plain README.md:**
+
+-   Allows executable R code chunks with real examples
+-   Renders to GitHub Flavored Markdown
+-   Images saved to `man/figures/README-` are included in built package (works on CRAN)
+    -   This is set in the `knitr` options
+
+**Where README.md displays:**
+
+-   GitHub repository home page
+-   CRAN package page (as hyperlinked "README" under Materials)
+    -   There is also NEWS there and it's really useful
+-   pkgdown site home page
+
+**Setup:** `usethis::use_readme_rmd()`
+
+-   Creates template README.Rmd with recommended knitr options
+-   Adds README.Rmd to `.Rbuildignore` (only README.md goes in package bundle)
+    -   This is one of the nice things about `usethis` functions, and that's their handling of `.gitignore` and `.Rbuildignore`
+-   Includes placeholder for badges (CRAN version, test coverage, CI status)
+    -   Cool but I do not understand those fully yet
+
+**Keeping README.md current:**
+
+-   Render with `devtools::build_readme()` — guarantees rendering against current source code
+-   Essential before release
+
+**Automatic safeguards:**
+
+-   Pre-commit Git hook added by `use_readme_rmd()` — blocks commits if README.Rmd is newer than README.md (override with `git commit --no-verify`)
+    -   Very cool and something I did not know was possible
+        -   Need to look into pre-commit hooks a bit more
+-   Hook not stored in repo; re-run `use_readme_rmd()` on fresh clones to restore
+    -   Also good to remember that the hook is added to this repo if it's a github repo but not on clones of the repo
+-   Release checklist from `usethis::use_release_issue()` includes reminder to rebuild using `devtools::build_readme()`
+
+**2026-01-21:** Stopped at section 18.2
+
+-   Small but cool progress today
