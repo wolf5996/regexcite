@@ -2441,6 +2441,7 @@ Two critical files for package communication:
 -   Renders to GitHub Flavored Markdown
 -   Images saved to `man/figures/README-` are included in built package (works on CRAN)
     -   This is set in the `knitr` options
+    -   `man` is also the home for function documentation, and this documentation is generated automatically by `roxygen2`
 
 **Where README.md displays:**
 
@@ -2460,6 +2461,7 @@ Two critical files for package communication:
 **Keeping README.md current:**
 
 -   Render with `devtools::build_readme()` — guarantees rendering against current source code
+    -   This essentially updates the `readme.md` if the `readme.rmd` changes, which is ideal
 -   Essential before release
 
 **Automatic safeguards:**
@@ -2474,3 +2476,34 @@ Two critical files for package communication:
 **2026-01-21:** Stopped at section 18.2
 
 -   Small but cool progress today
+
+**NEWS File**
+
+-   Create `NEWS.md` to document user-facing changes in each release
+-   Use `usethis::use_news_md()` to initialize the file
+
+**Visibility & Access**
+
+-   Appears on GitHub, CRAN landing page, and pkgdown site
+-   Targets existing users (unlike README which targets new users)
+
+**Structure**
+
+-   Top-level heading per version: `# packagename 1.0.0`
+-   Most recent version at top; development version: `# packagename (development version)`
+-   Organize changes as bulleted lists
+-   Use subheadings for many changes: `## Major changes`, `## Bug fixes`
+
+**Content Guidelines**
+
+-   Link issues/PRs: `(#10)` for issues, `(#101, @hadley)` for PRs with authors
+-   Record user-visible changes, not developer details
+-   Polish before release (included in `usethis::use_release_issue()` checklist)
+
+**Best Practices**
+
+-   Note changes when you make them, especially for external contributions
+-   Compare versions before release to catch missing items
+-   Organize and refine text near release time
+
+**2026-01-29:** End of chapter 18
