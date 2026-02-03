@@ -2507,3 +2507,33 @@ Two critical files for package communication:
 -   Organize and refine text near release time
 
 **2026-01-29:** End of chapter 18
+
+# Chapter 19: Website
+
+-   pkgdown automatically builds a package website from existing documentation (help topics, vignettes, README, NEWS)
+
+-   `usethis::use_pkgdown()` — run once for initial setup
+
+    -   creates `_pkgdown.yml` config
+
+        -   configuration file for `pkgdown` behaviour
+
+    -   updates `.Rbuildignore` and `.gitignore`
+
+-   `pkgdown::build_site()` — run repeatedly to re-render the site locally into `docs/`
+
+-   Works immediately on any valid R package with no configuration needed
+
+-   `docs/` is gitignored by default because the recommended workflow is to build and deploy via GitHub Actions/Pages
+
+    -   `docs/` is where the package will live
+
+    -   documentation lives in `man/` in case I am wondering later
+
+-   Local `docs/` folder is just for preview; open `docs/index.html` to browse
+
+-   `pkgdown`'s own site ([pkgdown.r-lib.org](https://pkgdown.r-lib.org)) covers advanced configuration
+
+**2026-02-03:** Stopped at section 19.2
+
+-   Cool chapter, small progress
