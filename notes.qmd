@@ -2537,3 +2537,51 @@ Two critical files for package communication:
 **2026-02-03:** Stopped at section 19.2
 
 -   Cool chapter, small progress
+
+**Deployment**
+
+-   Moving through the rest of the book rapidly — another book on mathematics for bioinformatics is next; the goal now is awareness of available functionality, with deeper dives driven by need and application rather than theory
+
+-   `usethis::use_pkgdown_github_pages()` handles the full setup in one call: creates an orphan `gh-pages` branch, enables GitHub Pages, configures a GitHub Actions workflow, and registers the site URL in DESCRIPTION and `_pkgdown.yml`
+
+    -   It also calls `use_pkgdown()` automatically, so it's find to jump to this command straightaway
+
+-   The site lives under `docs/` locally but has its own remote-only branch (`gh-pages`); GHA rebuilds the site on every push — conceptually very similar to a Netlify deployment workflow
+
+-   Default URL pattern is `https://USERNAME.github.io/REPONAME/`
+
+**Logo**
+
+-   Hex sticker tradition — use `hexSticker` package to create, `usethis::use_logo()` to place it at `man/figures/logo.png`; pkgdown auto-discovers it
+
+**Reference Index**
+
+-   pkgdown renders all examples (not just source code) — review how they look on the site
+
+    -   This is good to check on the site to ensure that figures look as expected and modify the dimensions of the output accordingly
+
+-   Auto-linking works when functions are referenced in `[square brackets]` in roxygen comments; inbound links from other packages require the site URL in both DESCRIPTION `URL` field and `_pkgdown.yml`
+
+-   For larger packages, organize the reference index into grouped sections via the `reference` field in `_pkgdown.yml`
+
+**Vignettes & Articles**
+
+-   Vignettes appear under the "Articles" dropdown; use `vignette("topic")` syntax for auto-linking within your package, `vignette("topic", package = "pkg")` for cross-package links
+
+-   In vignettes/articles, reference your own functions with backticks and parentheses (`` `myfun()` ``); qualify external functions with namespace (`` `pkg::fun()` ``)
+
+-   Non-vignette articles (`usethis::use_article()`) don't ship with the package bundle — useful when code requires informal dependencies, authentication, or produces large output that would hit CRAN size limits
+
+-   Informal dependencies for articles go in `Config/Needs/website` in DESCRIPTION
+
+**Development Mode**
+
+-   Default `mode: release` builds a single site from current source (may document unreleased features)
+
+-   `mode: auto` builds a main site from the released version and a `dev/` subdirectory from the development version — recommended for packages with a broad user base
+
+**2026-02-04:** End of Chapter 19
+
+-   Quick progress today because it is becoming more important to move on to more advanced topics
+
+-   Starting next week, I will be working full-time on releasing the first version of my package
