@@ -2585,3 +2585,7 @@ Two critical files for package communication:
 -   Quick progress today because it is becoming more important to move on to more advanced topics
 
 -   Starting next week, I will be working full-time on releasing the first version of my package
+
+-   Tried building a site for this package
+
+    -   Building the site worked but github pages hosting did not

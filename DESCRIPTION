@@ -19,6 +19,6 @@ Suggests:
 Config/testthat/edition: 3
 Imports: 
     stringr
-URL: https://github.com/wolf5996/regexcite
+URL: https://github.com/wolf5996/regexcite, https://wolf5996.github.io/regexcite/
 BugReports: https://github.com/wolf5996/regexcite/issues
 VignetteBuilder: quarto

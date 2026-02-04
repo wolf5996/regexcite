@@ -6,3 +6,7 @@
 ^images$
 ^vignettes/\.quarto$
 ^vignettes/*_files$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
