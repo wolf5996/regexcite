@@ -2589,3 +2589,7 @@ Two critical files for package communication:
 -   Tried building a site for this package
 
     -   Building the site worked but github pages hosting did not
+
+-   Nvm, it worked quite well
+
+    -   Just waiting on some GitHub action shit to run
