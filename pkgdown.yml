@@ -1,0 +1,9 @@
+pandoc: 3.1.11
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  visualisation_functionality: visualisation_functionality.html
+last_built: 2026-02-04T15:31Z
+urls:
+  reference: https://wolf5996.github.io/regexcite/reference
+  article: https://wolf5996.github.io/regexcite/articles
