@@ -2593,3 +2593,37 @@ Two critical files for package communication:
 -   Nvm, it worked quite well
 
     -   Just waiting on some GitHub action shit to run
+
+# Chapter 20: Software Development Practices
+
+Here's a concise summary:
+
+**Software Development Practices for R Packages**
+
+-   Use an IDE with R package development support (RStudio recommended, tightly integrated with devtools)
+-   Adopt Git for version control — every R package should be a Git repo
+-   Host repositories on GitHub to unlock the real benefits of version control (solo local Git alone rarely justifies the learning curve)
+-   Set up CI/CD (continuous integration) to automatically run `R CMD check` and rebuild your pkgdown site on each push
+
+**Why Git + GitHub Specifically**
+
+-   Industry standard: 94% of developers use Git; 87% use GitHub for personal projects
+-   R ecosystem alignment: \~80% of CRAN packages with URLs link to GitHub
+-   Extensive learning resources due to popularity
+
+**Key Benefits for R Packages**
+
+-   **Communication**: GitHub Issues provide searchable, public bug reports and feature requests
+-   **Collaboration**: Pull requests lower the barrier for outside contributions
+-   **Distribution**: Others can install dev versions directly via `devtools::install_github()` or `pak::pak()`
+-   **Website**: GitHub Pages integrates easily with pkgdown
+-   **CI/CD**: Automate checking and deployment via GitHub Actions
+
+**Core Argument**
+
+-   These tools aren't overkill even for non-professional developers — they make it easier to experiment, document, test, and collaborate
+-   Requires upfront investment but pays off by giving part-time developers access to expert-level workflows
+
+**2026-02-10:** Stopped at section 20.2
+
+-   I already use most or all of this, so this is a rehash of what I already know
