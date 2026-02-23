@@ -2627,3 +2627,42 @@ Here's a concise summary:
 **2026-02-10:** Stopped at section 20.2
 
 -   I already use most or all of this, so this is a rehash of what I already know
+
+**Summary: CI/CD with GitHub Actions**
+
+-   **Core concept**: Host package on GitHub, configure automated tasks (like `R CMD check`) to run on events like pushes and pull requests
+
+-   **Setup**: `usethis::use_github_action()` presents an interactive menu with pre-made workflows sourced from `r-lib/actions`
+
+-   **Key workflows available**:
+
+    -   `check-standard` — runs `R CMD check` on Linux, macOS, and Windows (highly recommended, especially for CRAN)
+    -   `test-coverage` — computes test coverage via covr
+    -   `pr-commands` — adds `/document` and `/style` commands for PRs
+        -   There is also one for pkgdown that builds the site with every push
+
+-   **What `use_github_action()` does**: writes a YAML workflow file to `.github/workflows/`, updates ignore files, and adds a status badge to your README
+
+-   **Other GHA uses**: pkgdown site deployment to GitHub Pages, book publishing, or custom workflows using `r-lib/actions` building blocks
+
+**2026-02-18:** End of Chapter 20
+
+-   Short and sweet with some useful information around github actions, CI being continuous integration, and CD being continuous development
+
+# Chapter 21: Lifecycle
+
+-   Package evolution is about balancing the needs of maintainers, existing users, and future users — you can't optimize for all simultaneously
+
+-   The smallest meaningful unit of change is a **Git commit**, but the primary signal of meaningful change to users is an **incremented version number** paired with a release
+
+-   Version numbers live in the `Version` field of `DESCRIPTION` and each CRAN release creates an archived package bundle
+
+-   **Breaking changes** (removing functions, narrowing inputs) are the main source of user friction — later sections cover how to gauge "breakingness" and when breaking changes are justified
+
+-   Key practices for managing change kindly: intentional **version numbering** (patch vs major), explicit **lifecycle stages** (experimental, superseded, deprecated, stable), and phased **deprecation processes**
+
+-   The unofficial **`cran/` GitHub mirror** (e.g., `github.com/cran/usethis`) is extremely useful for quickly comparing CRAN releases — each commit corresponds to a release, making diffs trivial compared to navigating the actual dev repo or downloading `.tar.gz` archives from CRAN
+
+-   Three complementary views of a package's evolution: CRAN archive (official bundles), CRAN GitHub mirror (easy diffing), and the dev repo (full commit history)
+
+**2026-02-23:** Brisk progress and a lot of this is making sense now
