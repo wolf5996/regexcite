@@ -2665,4 +2665,38 @@ Here's a concise summary:
 
 -   Three complementary views of a package's evolution: CRAN archive (official bundles), CRAN GitHub mirror (easy diffing), and the dev repo (full commit history)
 
-**2026-02-23:** Brisk progress and a lot of this is making sense now
+**2026-02-23:** Stopped at section 21.2
+
+-   Brisk progress and a lot of this is making sense now
+
+**Tidyverse Version Convention: `<major>.<minor>.<patch>`**
+
+-   Always use `.` as separator, never `-`
+
+-   Always spell out all three components — use `1.0.0`, never `1.0`
+
+-   **Major**: big, potentially breaking changes (users may need to update their code)
+
+-   **Minor**: new features that are backward-compatible
+
+-   **Patch**: bug fixes, minor improvements, no new features
+
+**Backward Compatibility & Breaking Changes**
+
+-   A **breaking change** means pre-existing code no longer works (or works differently) with the new version — though "works" is a spectrum, not binary
+
+-   Assess impact from three angles: severity of behavior change, how central the affected code is to the package, and how much existing usage is affected
+
+-   **Typically breaking**: removing a function, removing an argument, narrowing valid inputs
+
+-   **Typically not breaking**: adding a function, adding an argument, expanding valid inputs, fixing a bug, changing error/print text — though each has edge-case caveats
+
+-   Pragmatic definition: a change is breaking if it causes a previously-passing reverse dependency to fail `R CMD check` and the dependency's usage was correct
+
+-   Best way to assess impact is empirical — run your own tests plus reverse dependency checks, don't just reason about it
+
+**2026-02-24:** Stopped at section 21.5
+
+-   Brisk pace as always because I need to replace this slot in my to-do list with the deep learning and python work
+
+-   Some really good points here though
