@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/wolf5996/regexcite/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/wolf5996/regexcite/blob/main/DESCRIPTION)
 
 Elshenawy B (2026). *regexcite: Test Package*. R package version
 0.0.0.9000, <https://github.com/wolf5996/regexcite>.
