@@ -2681,6 +2681,8 @@ Here's a concise summary:
 
 -   **Patch**: bug fixes, minor improvements, no new features
 
+    -   All of the changes I make to arguments, defaults, etc. are considered patches, new functions entirely are minor changes, and breaking changes to the code are considered major
+
 **Backward Compatibility & Breaking Changes**
 
 -   A **breaking change** means pre-existing code no longer works (or works differently) with the new version — though "works" is a spectrum, not binary
@@ -2700,3 +2702,36 @@ Here's a concise summary:
 -   Brisk pace as always because I need to replace this slot in my to-do list with the deep learning and python work
 
 -   Some really good points here though
+
+Here's a summary of the key points:
+
+**Version Number Structure**
+
+-   Format: `major.minor.patch` for releases, with `.dev` appended during development
+    -   I am usually sticking with the first part of this and ignoring the second part—never got sold on the `.dev` convention
+-   **Patch release** (e.g., 0.8.2): bug fixes only, no new features or breaking changes
+    -   Changing default values for a function is a patch release
+-   **Minor release** (e.g., 0.9.0): bug fixes, new features, and backward-compatible changes — the most common release type
+    -   Add new functions or arguments to an existing function is a minor release
+-   **Major release** (e.g., 1.0.0): breaking changes that affect many users; 1.0.0 specifically signals a feature-complete, stable API
+    -   Massive changes to the API that break compatibility with the last version of the package is a major release
+    -   Alternatively, it should be a bunch of new cool features that widen the scope of your work
+-   Save exciting new features for major releases for better visibility (blog posts, NEWS)
+
+**The `usethis` Utility for Versioning**
+
+-   `usethis::create_package()` initializes your package at version `0.0.0.9000`
+-   `usethis::use_version()` provides an interactive menu to increment major, minor, patch, or dev versions — no manual editing needed
+-   It automatically updates `Version` in DESCRIPTION and adds a new heading in `NEWS.md`, keeping your changelog in sync with your version bumps
+    -   You can then have Claude Code tag the specific commit on GitHub and build the release afterwards
+
+**Breaking Changes: Practical Considerations**
+
+-   Most R users don't manage package versions intentionally, so upgrading to a major version with breaking changes often happens accidentally
+-   The `renv` package is recommended for project-specific libraries to protect against unexpected breakage
+-   Extreme resistance to breaking change drags down development, but constant breaking changes frustrate users—aim for a balanced middle ground
+-   The more users you have, the more carefully you should weigh backward compatibility against development velocity
+
+**2026-03-06:** Stopped at section 21.7
+
+-   Brisk pace and valid points above with a special shout-out to the cool `usethis::use_version()` function that I just learnt about
