@@ -2735,3 +2735,80 @@ Here's a summary of the key points:
 **2026-03-06:** Stopped at section 21.7
 
 -   Brisk pace and valid points above with a special shout-out to the cool `usethis::use_version()` function that I just learnt about
+
+**Lifecycle Stages and Tools**
+
+-   The lifecycle package (lifecycle.r-lib.org) provides tooling for managing package evolution
+-   Two major components: lifecycle stages (applied to arguments, functions, or packages) and conventions/functions for transitioning between stages
+
+**Four Lifecycle Stages**
+
+-   **Stable** — the default; users can rely on it; breaking changes should be rare and gradual
+-   **Experimental** — function may change without much deprecation process; implied for any package with major version 0 (pre-1.0.0)
+-   **Deprecated** — slated for removal; still works initially but triggers a warning with info on alternatives; eventually removed
+-   **Superseded** — a softer alternative to deprecated; legacy functionality preserved in a "time capsule" with only critical bug fixes
+
+**Badges**
+
+-   `usethis::use_lifecycle()` does one-time setup: adds lifecycle to Imports, copies SVG badges to `man/figures/`, sets up the namespace
+-   For functions, include the badge in the `@description` block using inline R: `` `r lifecycle::badge("superseded")` ``
+-   For arguments, include the badge in the `@param` tag
+-   `usethis::use_lifecycle_badge()` adds a package-level badge to README
+-   No badge needed if the stage matches the parent level (e.g. a stable function in a stable package)
+
+**Deprecating a Function**
+
+-   Use `lifecycle::deprecate_warn()` inside the function body to inform users and point them to the preferred alternative
+-   The warning message is built from structured inputs (`when`, `what`, `with`, `details`) for a predictable, low-cognitive-load format
+-   By default, each specific warning fires only once every 8 hours to balance annoyance with actionability; set `always = TRUE` near end of life
+-   `lifecycle::deprecate_soft()` only warns the person who can actually fix it — indirect callers (e.g. users of a downstream package) are not warned by default
+
+**Typical Deprecation Schedule**
+
+-   **v1.5.0** — `fun()` exists and is stable
+-   **v1.6.0** — deprecation begins: add a deprecated badge to the help topic, insert `deprecate_warn()` in the function body; `fun()` still works
+-   **v1.7.0 or v2.0.0** — `fun()` is removed; whether minor or major release depends on how widely used it is
+
+**Deprecating an Argument**
+
+-   Use `lifecycle::deprecated()` as the default value for the deprecated argument — signals deprecation in docs and enables `lifecycle::is_present()` checks inside the function
+-   Inside the function, check `is_present(old_arg)`, issue `deprecate_warn()`, then map the old argument to the new one so existing code still works
+-   Base R alternative: `missing()` overlaps with `is_present()` but is trickier around default values; `.Deprecated()` and `.Defunct()` substitute for `deprecate_warn()`
+
+**Deprecation Helpers**
+
+-   When a deprecation affects many functions (e.g. removing a `verbose` argument from every function), centralize the logic in an internal helper rather than inlining it everywhere
+
+-   The googledrive example: `verbose` argument was replaced by a global option (`googledrive_quiet`) and scoped helpers (`local_drive_quiet()`, `with_drive_quiet()`)
+
+-   Pattern: each affected function uses `verbose = deprecated()` as default, then delegates to the shared helper `warn_for_verbose()`
+
+-   The helper checks `is_present(verbose)` — if unspecified or `TRUE`, it does nothing; if `FALSE`, it warns with advice on the new approach while still honoring the user's intent for now
+
+-   Once the next major release arrives, the argument and helper can both be deleted cleanly
+
+**Dealing with Change in a Dependency**
+
+-   If the dependency is already released, you can bump the minimum version in DESCRIPTION and use the new feature unconditionally — but this forces users to update that dependency too (and only works for Imports, not Suggests)
+
+-   To support both old and new versions, check `packageVersion("otherpkg")` at runtime and branch accordingly; `rlang::is_installed()` and `rlang::check_installed()` with the `version` argument are good alternatives
+
+-   For not-yet-released changes in a dependency, you can prepare a version of your package that works before and after the change — sometimes via refactoring, sometimes via explicit version checks against a dev version like `1.3.9000`
+
+-   If referencing a function that only exists in the dev version, `R CMD check` will note it doesn't exist yet; CRAN generally accepts this if you explain it's for backward/forward compatibility
+
+**Superseding a Function**
+
+-   Superseded is appropriate when a function is no longer preferred but has enough usage that removal isn't warranted — e.g. `tidyr::spread()` / `tidyr::gather()` superseded by `pivot_wider()` / `pivot_longer()`
+
+-   Superseded functions receive only critical bug fixes and no new features, but are not at risk of removal
+
+-   A related pattern is preserving legacy behaviour behind an opt-in mechanism so users can get old code working quickly until they can do a full update
+
+-   Examples of opt-in legacy behaviour: `tidyr::nest_legacy()` / `unnest_legacy()` for the old nest interface; `dplyr.legacy_locale` option for pre-1.1.0 group sorting; `vctrs::vec_as_names_legacy()` for older name-repair strategies; `readr::with_edition(1)` / `local_edition(1)` for the pre-2.0.0 backend
+
+**2026-03-09:** End of chapter 21
+
+-   Applied `usethis::use_lifecycle()` to my own package
+
+    -   I intend to mark that as a patch as well (**v1.3.1**) in line with package dev conventions discussed in this chapter
