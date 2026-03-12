@@ -2812,3 +2812,77 @@ Here's a summary of the key points:
 -   Applied `usethis::use_lifecycle()` to my own package
 
     -   I intend to mark that as a patch as well (**v1.3.1**) in line with package dev conventions discussed in this chapter
+
+# Chapter 22: Releasing to CRAN
+
+**Releasing to CRAN**
+
+-   `usethis::use_release_issue()` opens a GitHub issue with a release checklist
+
+    -   It's responsive to package characteristics and constantly evolving
+
+-   Treat CRAN compliance as an ongoing practice, not a last-minute activity
+
+    -   Run `R CMD check` regularly on multiple platforms and fix issues promptly
+
+-   Main reason to publish on CRAN: discoverability and reach
+
+    -   most R users only install from CRAN
+
+-   Even a clean local `R CMD check` can fail on remote servers with different OS/configurations — CI via GitHub Actions is essential
+
+    -   I already do this for macOS, Ubuntu, and windows through GitHub Actions for my package `BadranSeq`
+
+**Release process overview**
+
+-   Choose release type (major/minor/patch), which determines version number and shapes the checklist
+
+-   For existing CRAN packages: review current CRAN check results; for new packages: confirm CRAN policy compliance
+
+-   Freshen `README.md` and `NEWS.md`
+
+-   Run `devtools::check()` across multiple OS and R versions (release + devel)
+
+-   Run reverse dependency checks if other packages depend on yours
+
+-   Submit to CRAN, await acceptance, then create a GitHub release and bump the version number
+
+**First release considerations**
+
+-   New packages get human review in addition to automated checks
+
+    -   higher scrutiny and some subjectivity
+
+-   `usethis::use_cran_comments()` creates a file for submission comments (later used for reporting revdep results)
+
+-   Title and Description in `DESCRIPTION` are heavily nitpicked
+
+    -   Proofread carefully
+
+-   `Authors@R` must include a copyright holder (`'cph'` role)
+
+    -   Either the author or employer
+
+-   Maintainer email must be stable and unfiltered
+
+    -   CRAN will remove packages if they can't reach you
+
+-   Every exported function needs `@returns` and `@examples` — don't use `\dontrun{}` as a shortcut; express pre-conditions properly
+
+-   Embedded third-party code must have its license correctly declared
+
+-   Check community lists of recent CRAN "gotchas" (e.g., [`extrachecks`](https://github.com/DavisVaughan/extrachecks) repo) to pre-empt common rejection reasons
+
+**Staying informed on CRAN policy**
+
+-   Official policy lives at `cran.r-project.org/web/packages/policies.html`
+
+-   The `eddelbuettel/crp` GitHub repo tracks policy changes via commit history — much easier to monitor than re-reading the document
+
+-   R-package-devel mailing list is useful for keeping up with what other maintainers encounter
+
+**2026-03-12:** Stopped at section 22.3
+
+-   Last chapter of the book and will guide my efforts if I ever want to submit this to CRAN
+
+-   Might be worth doing after submitting this for publication through bioArchives or JOSS
