@@ -2886,3 +2886,89 @@ Here's a summary of the key points:
 -   Last chapter of the book and will guide my efforts if I ever want to submit this to CRAN
 
 -   Might be worth doing after submitting this for publication through bioArchives or JOSS
+
+**Keeping Up with Change**
+
+-   Check current CRAN check results for your package — address any non-"OK" results before releasing
+
+-   Advance any ongoing deprecation processes (see lifecycle/versioning notes)
+
+-   Polish accumulated `NEWS` bullets for clarity and consistency
+
+-   Run `urlchecker::url_check()` — fix dead URLs and handle 301 redirects (convert to verbatim text if a legitimate URL triggers CRAN's redirect policy)
+
+-   Rebuild `README.md` with `devtools::build_readme()` to ensure it reflects current package state
+
+**Double R CMD Checking**
+
+-   `devtools::check(remote = TRUE, manual = TRUE)` — full check on your dev machine
+
+-   `devtools::check_win_devel()` — check against r-devel on CRAN's win-builder; required by CRAN policy
+
+-   CRAN expects packages to work on at least two major platforms; packages failing this are typically rejected
+
+-   **ERRORs and WARNINGs**: must all be fixed — CRAN will not accept otherwise
+
+-   **NOTEs**: eliminate as many as possible; any you can't fix must be explained in `cran-comments.md`
+
+-   First submissions always get one unavoidable NOTE — just acknowledge it
+
+**CRAN Check Flavours and Services**
+
+-   CRAN checks across combinations of OS (Windows, macOS, Linux), R version (devel, release, oldrel), compilers, and locale
+
+-   Use GitHub Actions as primary multi-platform CI; supplement with R-hub (`rhub::check_for_cran()`) and the macOS builder (`mac.r-project.org`) for additional coverage
+
+**Reverse Dependency Checks**
+
+-   Run `revdepcheck::revdep_check(num_workers = 4)` — checks each revdep twice (CRAN version vs your dev version) to isolate new breakages from pre-existing failures
+
+-   One-time setup: `usethis::use_revdep()` configures `.gitignore` and `.Rbuildignore`
+
+-   Results written to `revdep/` — `README.md` (maintainer summary), `problems.md` (breakages), `failures.md` (unchecked), `cran.md` (paste into `cran-comments.md`)
+
+-   Be aware of false positives (flaky tests, resource limits) and false negatives (missing system deps preventing installation)
+
+-   If your release breaks other packages: notify maintainers (ideally with a patch/PR), give at least two weeks' notice before submission, explain remaining failures in `cran-comments.md`
+
+**Update Comments for CRAN**
+
+-   `cran-comments.md` — version-controlled, `.Rbuildignore`d file recording R CMD check results and revdep summary
+
+-   Structure: "R CMD check results" section (errors/warnings/notes) + "revdepcheck results" section (or state no downstream deps)
+
+-   Explain any NOTEs with the check message and justification
+
+**The Submission Process**
+
+-   `usethis::use_version('minor')` (or `'patch'`/`'major'`) — bump version in DESCRIPTION
+
+-   `devtools::submit_cran()` — builds package, uploads to CRAN, writes a local `CRAN-SUBMISSION` file used later by `use_github_release()`
+
+-   You must click the confirmation link in the email CRAN sends — without this your package is not actually submitted
+
+-   CRAN runs automated checks (Windows + Linux, release + devel); initial submissions also get human review
+
+**Failure Modes**
+
+-   Three ways to fail: R CMD check failure (automated), policy violation (human review), or revdep regressions (automated)
+
+-   On failure: fix problems, bump patch version (gaps in version numbers are fine), add a "Resubmission" section to `cran-comments.md` listing changes, then `devtools::submit_cran()` again
+
+-   If the failure is a false positive (common with revdep checks on large packages), reply to CRAN's email with a concise explanation
+
+**Celebrating Success**
+
+-   `usethis::use_github_release()` — pushes the release tag and creates GitHub release notes from `NEWS`; depends on the `CRAN-SUBMISSION` file
+
+-   `usethis::use_dev_version(push = TRUE)` — immediately increment to dev version so new branches are clearly based on development
+
+-   Check your CRAN landing page a few days post-release — binaries and full flavour checks take time and can surface new issues
+
+-   Blog about the release (especially for initial/minor/major); link blog posts in `_pkgdown.yml` under the news menu
+
+-   Future releases should be spaced at least 1–2 months apart per CRAN policy
+
+**2026-03-16:** End of chapter 22 and the book
+
+-   Was a very long ride that resulted in the development of [BadranSeq](https://github.com/wolf5996/BadranSeq)
